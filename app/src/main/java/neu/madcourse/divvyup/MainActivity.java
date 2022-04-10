@@ -8,6 +8,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         createNotificationChannel();
         Button testNotificationsButton = findViewById(R.id.testButton);
+
+        Button groupLoginButton = findViewById(R.id.groupLoginButton);
+        Intent groupLoginIntent = new Intent(this, GroupLoginActivity.class);
+        groupLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(groupLoginIntent);
+            }
+        });
 
         testNotificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
