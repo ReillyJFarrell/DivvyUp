@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DivvyUp">
         <activity
-            android:name=".chores_screen.ChoreCard"
+            android:name=".chores_list_screen.ChoreCard"
             android:exported="false" />
         <activity
-            android:name=".chores_screen.ChoresActivity"
+            android:name=".chores_list_screen.ChoresActivity"
             android:exported="false" />
         <activity
             android:name=".GroupLoginActivity"

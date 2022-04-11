@@ -1,10 +1,8 @@
-package neu.madcourse.divvyup.chores_screen;
-
-import androidx.appcompat.app.AppCompatActivity;
+package neu.madcourse.divvyup.chores_list_screen;
 
 import java.util.Date;
 
-public class ChoreCard {
+public class ChoreCard implements ChoreCardClickListener {
 
     private Integer assignedUser;
     private String title;
@@ -62,6 +60,11 @@ public class ChoreCard {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 
 }

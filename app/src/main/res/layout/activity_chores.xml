@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chores_screen.ChoresActivity">
+    tools:context=".chores_list_screen.ChoresActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idCompletedChoresRecycler"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idDoneChoresRecycler"
+        android:id="@+id/idToDoChoresRecycler"
         android:layout_width="412dp"
         android:layout_height="175dp"
         android:layout_marginBottom="4dp"
@@ -43,9 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/to_do"
-        app:layout_constraintBottom_toTopOf="@+id/idDoneChoresRecycler"
+        android:textStyle="bold"
+        android:textColor="#ff5050"
+        app:layout_constraintBottom_toTopOf="@+id/idToDoChoresRecycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -53,9 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/in_progress"
+        android:textStyle="bold"
+        android:textColor="#ff9900"
         app:layout_constraintBottom_toTopOf="@+id/idInProgressChoresRecycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -63,9 +67,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/completed"
+        android:textStyle="bold"
+        android:textColor="#00cc99"
         app:layout_constraintBottom_toTopOf="@+id/idCompletedChoresRecycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

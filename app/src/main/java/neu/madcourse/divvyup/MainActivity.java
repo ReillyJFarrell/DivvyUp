@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import neu.madcourse.divvyup.chores_list_screen.ChoresActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
@@ -39,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(groupLoginIntent);
+            }
+        });
+
+        Button ChoresActivity = findViewById(R.id.choresActivityButton);
+        Intent choresActivityIntent = new Intent(this, ChoresActivity.class);
+        ChoresActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(choresActivityIntent);
             }
         });
 
