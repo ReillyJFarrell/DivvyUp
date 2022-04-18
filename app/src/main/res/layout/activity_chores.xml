@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".chores_list_screen.ChoresActivity">
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/fragment_stackedbarchart_chart"
+        android:layout_width="354dp"
+        android:layout_height="69dp"
+        app:layout_constraintBottom_toTopOf="@+id/idToDoChoresRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.67" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idCompletedChoresRecycler"
         android:layout_width="0dp"

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.github.mikephil.charting.charts.BarChart;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ public class ChoresActivity extends AppCompatActivity {
     private RecyclerView toDoRView;
     private RecyclerView inProgressRView;
     private RecyclerView completedRView;
+    private BarChart stackedChart;
 
     private ChoreAdapter toDoChoreAdapter;
     private ChoreAdapter inProgressChoreAdapter;
