@@ -7,7 +7,7 @@
     tools:context=".chores_list_screen.ChoresActivity">
 
     <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/fragment_stackedbarchart_chart"
+        android:id="@+id/idBarChart"
         android:layout_width="354dp"
         android:layout_height="69dp"
         app:layout_constraintBottom_toTopOf="@+id/idToDoChoresRecycler"
