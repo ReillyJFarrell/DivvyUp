@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import neu.madcourse.divvyup.chores_list_screen.ChoresActivity;
+import neu.madcourse.divvyup.recap.RecapActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(choresActivityIntent);
             }
         });
+
+
+        Button ProgressActivity = findViewById(R.id.progressActivityButton);
+        Intent progressActivityIntent = new Intent(this, RecapActivity.class);
+        ProgressActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(progressActivityIntent);
+            }
+        });
+
 
         testNotificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
