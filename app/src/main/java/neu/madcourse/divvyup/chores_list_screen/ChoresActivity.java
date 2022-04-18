@@ -45,7 +45,7 @@ public class ChoresActivity extends AppCompatActivity {
     private List<ChoreCard> inProgressChoresList = new ArrayList<>();
     private List<ChoreCard> completedChoresList = new ArrayList<>();
 
-    int[] colorClassArray = new int[]{Color.RED, Color.YELLOW, Color.RED};
+    int[] colorClassArray = new int[]{Color.GREEN, Color.YELLOW, Color.RED};
 
 
     @Override
