@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".chores_list_screen.ChoresActivity">
 
-    <com.github.mikephil.charting.charts.BarChart
+    <com.github.mikephil.charting.charts.HorizontalBarChart
         android:id="@+id/idBarChart"
         android:layout_width="354dp"
         android:layout_height="69dp"
