@@ -1,33 +1,62 @@
 package neu.madcourse.divvyup.chores_list_screen;
 
+import java.time.DayOfWeek;
 import java.util.Date;
 
 public class ChoreCard implements ChoreCardClickListener {
 
-    private Integer assignedUser;
+    private Integer assignedUserId;
+    private Integer groupId;
+
     private String title;
     private String description;
-    private Date dueTime;
+
     // 1 = To Do, 2 = In Progress, 3 = Done
     private Integer status;
+
+    private Date deadline;
+
+    private DayOfWeek repeatedDates;
+    private boolean isRepeating;
+
+    private Integer totalCompleted;
+    private Integer totalTasks;
 
     public ChoreCard() {
     }
 
-    public ChoreCard(Integer assignedUser, String title, String description, Date dueTime, Integer status) {
-        this.assignedUser = assignedUser;
+    public ChoreCard(Integer assignedUser, Integer groupId, String title, String description, Date dueTime, Integer status) {
+        this.assignedUserId = assignedUser;
+        this.groupId = groupId;
         this.title = title;
         this.description = description;
-        this.dueTime = dueTime;
+        this.deadline = dueTime;
         this.status = status;
+        repeatedDates = null;
+        isRepeating = false;
+        totalCompleted = 0;
+        totalTasks = 1;
     }
 
-    public Integer getAssignedUser() {
-        return assignedUser;
+    public ChoreCard(Integer assignedUserId, Integer groupId, String title, String description, Integer status, Date deadline, DayOfWeek repeatedDates, boolean isRepeating, Integer totalCompleted, Integer totalTasks) {
+        this.assignedUserId = assignedUserId;
+        this.groupId = groupId;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.deadline = deadline;
+        this.repeatedDates = repeatedDates;
+        this.isRepeating = isRepeating;
+        this.totalCompleted = totalCompleted;
+        this.totalTasks = totalTasks;
     }
 
-    public void setAssignedUser(Integer assignedUser) {
-        this.assignedUser = assignedUser;
+    public Integer getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(Integer assignedUserId) {
+        this.assignedUserId = assignedUserId;
     }
 
     public String getTitle() {
@@ -46,12 +75,12 @@ public class ChoreCard implements ChoreCardClickListener {
         this.description = description;
     }
 
-    public Date getDueTime() {
-        return dueTime;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setDueTime(Date dueTime) {
-        this.dueTime = dueTime;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public Integer getStatus() {
@@ -60,6 +89,46 @@ public class ChoreCard implements ChoreCardClickListener {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public DayOfWeek getRepeatedDates() {
+        return repeatedDates;
+    }
+
+    public void setRepeatedDates(DayOfWeek repeatedDates) {
+        this.repeatedDates = repeatedDates;
+    }
+
+    public boolean isRepeating() {
+        return isRepeating;
+    }
+
+    public void setRepeating(boolean repeating) {
+        isRepeating = repeating;
+    }
+
+    public Integer getTotalCompleted() {
+        return totalCompleted;
+    }
+
+    public void setTotalCompleted(Integer totalCompleted) {
+        this.totalCompleted = totalCompleted;
+    }
+
+    public Integer getTotalTasks() {
+        return totalTasks;
+    }
+
+    public void setTotalTasks(Integer totalTasks) {
+        this.totalTasks = totalTasks;
     }
 
     @Override

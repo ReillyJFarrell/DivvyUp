@@ -37,29 +37,29 @@ public class ChoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chores);
 
-        toDoChoresList.add(new ChoreCard(3, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(2, "Trash", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(1, "Farm", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(3, "Vacuum", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(2, "Living Room", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(2, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(5, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(7, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
-        toDoChoresList.add(new ChoreCard(2, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(3, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(2, 1, "Trash", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(1, 1, "Farm", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(3, 1, "Vacuum", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(2, 1, "Living Room", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(2, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(5, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(7, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
+        toDoChoresList.add(new ChoreCard(2, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
 
-        inProgressChoresList.add(new ChoreCard(3, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(2, "Trash", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(1, "Farm", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(3, "Vacuum", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(2, "Living Room", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(2, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(5, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(7, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
-        inProgressChoresList.add(new ChoreCard(2, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(3, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(2, 1, "Trash", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(1, 1, "Farm", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(3, 1, "Vacuum", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(2, 1, "Living Room", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(2, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(5, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(7, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
+        inProgressChoresList.add(new ChoreCard(2, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 2));
 
-        completedChoresList.add(new ChoreCard(5, "Dishes", "clean dishes", new Date(2022, 5, 12), 3));
-        completedChoresList.add(new ChoreCard(7, "Dishes", "clean dishes", new Date(2022, 5, 12), 3));
-        completedChoresList.add(new ChoreCard(2, "Dishes", "clean dishes", new Date(2022, 5, 12), 3));
+        completedChoresList.add(new ChoreCard(5, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 3));
+        completedChoresList.add(new ChoreCard(7, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 3));
+        completedChoresList.add(new ChoreCard(2, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 3));
 
         toDoLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         inProgressLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
