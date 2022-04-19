@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DivvyUp">
         <activity
+            android:name=".EditChoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".recap.RecapActivity"
             android:exported="false" />
         <activity
