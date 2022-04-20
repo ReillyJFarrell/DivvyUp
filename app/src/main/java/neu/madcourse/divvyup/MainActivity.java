@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.database = FirebaseDatabase.getInstance();
+//        this.database = FirebaseDatabase.getInstance();
         createNotificationChannel();
         Button testNotificationsButton = findViewById(R.id.testButton);
 
@@ -65,53 +65,56 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        Intent testDBActivityIntent = new Intent(this, DatabaseTestActivity.class);
         testNotificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                doSendToDB();
+            public void onClick(View view)
+            {
+                startActivity(testDBActivityIntent);
+//                doSendToDB();
             }
         });
 
 
-        database.getReference().child("Users").addChildEventListener(
-                new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                            sendNotification();
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                }
-        );
+//        database.getReference().child("Users").addChildEventListener(
+//                new ChildEventListener() {
+//                    @Override
+//                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                            sendNotification();
+//                    }
+//
+//                    @Override
+//                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    }
+//
+//                    @Override
+//                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                }
+//        );
 
 
 
 
     }
 
-    private void doSendToDB(){
-        DatabaseReference ref = this.database.getReference().child("Users");
-        DatabaseReference newPostRef = ref.push();
-        newPostRef.setValue("New User");
-    }
+//    private void doSendToDB(){
+//        DatabaseReference ref = this.database.getReference().child("Users");
+//        DatabaseReference newPostRef = ref.push();
+//        newPostRef.setValue("New User");
+//    }
 
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

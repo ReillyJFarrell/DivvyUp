@@ -9,7 +9,7 @@
     <string name="frequency">frequency</string>
     <string name="chore">chore</string>
     <string name="cancel">Cancel</string>
-    <string name="chore">chore</string>
+    <!--    <string name="chore">chore</string>-->
     <string name="repeating">repeating</string>
     <string name="save">Save</string>
     <string name="deletes_chore">Deletes Chore</string>
