@@ -11,7 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import neu.madcourse.divvyup.R;
+import neu.madcourse.divvyup.chores_list_screen.ChoreCard;
 
 public class RecapActivity extends AppCompatActivity {
     private ProgressBar progressBar;
@@ -86,6 +89,6 @@ public class RecapActivity extends AppCompatActivity {
         } else {
             progressPercent.setTextColor(Color.parseColor("#08FF08"));
         }
-
+//        toDoChoresList.add(new ChoreCard(3, 1, "Dishes", "clean dishes", new Date(2022, 5, 12), 1));
     }
 }
