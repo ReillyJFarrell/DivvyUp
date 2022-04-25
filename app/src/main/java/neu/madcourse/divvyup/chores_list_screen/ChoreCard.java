@@ -19,8 +19,6 @@ public class ChoreCard implements ChoreCardClickListener {
     private DayOfWeek repeatedDates;
     private boolean isRepeating;
 
-    private Integer totalCompleted;
-    private Integer totalTasks;
 
     public ChoreCard() {
     }
@@ -34,8 +32,6 @@ public class ChoreCard implements ChoreCardClickListener {
         this.status = status;
         repeatedDates = null;
         isRepeating = false;
-        totalCompleted = 0;
-        totalTasks = 1;
     }
 
     public ChoreCard(Integer assignedUserId, Integer groupId, String title, String description, Integer status, Date deadline, DayOfWeek repeatedDates, boolean isRepeating, Integer totalCompleted, Integer totalTasks) {
@@ -47,8 +43,6 @@ public class ChoreCard implements ChoreCardClickListener {
         this.deadline = deadline;
         this.repeatedDates = repeatedDates;
         this.isRepeating = isRepeating;
-        this.totalCompleted = totalCompleted;
-        this.totalTasks = totalTasks;
     }
 
     public Integer getAssignedUserId() {
@@ -113,22 +107,6 @@ public class ChoreCard implements ChoreCardClickListener {
 
     public void setRepeating(boolean repeating) {
         isRepeating = repeating;
-    }
-
-    public Integer getTotalCompleted() {
-        return totalCompleted;
-    }
-
-    public void setTotalCompleted(Integer totalCompleted) {
-        this.totalCompleted = totalCompleted;
-    }
-
-    public Integer getTotalTasks() {
-        return totalTasks;
-    }
-
-    public void setTotalTasks(Integer totalTasks) {
-        this.totalTasks = totalTasks;
     }
 
     @Override
