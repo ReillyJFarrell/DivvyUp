@@ -9,6 +9,9 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import neu.madcourse.divvyup.data_objects.ChoreObject;
 import neu.madcourse.divvyup.data_objects.GroupObject;
 import neu.madcourse.divvyup.data_objects.UserObject;
@@ -59,7 +62,9 @@ public class DatabaseTestActivity extends AppCompatActivity {
     private void doAddGroupToDB(){
         DatabaseReference ref = this.database.getReference().child("groups");
         DatabaseReference newPostRef = ref.push();
-        newPostRef.setValue(new GroupObject());
+        ChoreObject testChore = new ChoreObject("Test chore", "This is a test chore", true);
+        GroupObject testGroup = new GroupObject("IDDD", Arrays.asList("user1", "user2"), Arrays.asList(testChore), "Test Group Name");
+        newPostRef.setValue(testGroup);
     }
 
     private void doAddChoreToDB(String choreName, String choreDescription, boolean isRepeating){

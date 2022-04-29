@@ -5,27 +5,32 @@ import java.util.List;
 
 public class GroupObject {
     String IDCode;
+    String groupName;
     List<String> membersIDs;
-    List<String> choreIDs;
+    List<ChoreObject> chores;
 
     public GroupObject(){
-        this.membersIDs = new ArrayList<String>();
-        this.choreIDs = new ArrayList<String>();
+        this.membersIDs = new ArrayList<String>() {
+        };
+        this.chores = new ArrayList<ChoreObject>();
         this.IDCode = "tempID";
+        this.groupName = "tempName";
+
     }
 
-    public GroupObject(String IDCode, ArrayList<String> membersIDs, ArrayList<String> choreIDs){
+    public GroupObject(String IDCode, List<String> membersIDs, List<ChoreObject> chores, String groupName){
         this.membersIDs = membersIDs;
-        this.choreIDs = choreIDs;
+        this.chores = chores;
         this.IDCode = IDCode;
+        this.groupName = groupName;
     }
 
     public void setIDCode(String IDCode) {
         this.IDCode = IDCode;
     }
 
-    public void addChore(String chore) {
-        this.choreIDs.add(chore);
+    public void addChore(ChoreObject chore) {
+        this.chores.add(chore);
     }
 
     public void addMember(String memberID) {
@@ -36,12 +41,12 @@ public class GroupObject {
         this.membersIDs = membersIDs;
     }
 
-    public void setChoreIDs(List<String> choreIDs) {
-        this.choreIDs = choreIDs;
+    public void setChores(List<ChoreObject> chores) {
+        this.chores = chores;
     }
 
-    public List<String> getChoreIDs() {
-        return choreIDs;
+    public List<ChoreObject> getChores() {
+        return chores;
     }
 
     public String getIDCode() {
@@ -50,5 +55,13 @@ public class GroupObject {
 
     public List<String> getMembersIDs() {
         return membersIDs;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

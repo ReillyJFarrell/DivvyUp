@@ -7,9 +7,9 @@ import java.util.List;
 public class ChoreObject {
 
     String name;
-    List<Integer> days;
+    List<Boolean> days;
     List<Integer> progressMode;
-    List<String> userAssigned;
+    String userAssigned;
     String groupID;
     String description;
     String choreID;
@@ -19,8 +19,8 @@ public class ChoreObject {
         this.name = name;
         this.description = description;
         this.isRepeat = isRepeat;
-        this.days = Arrays.asList(0, 0, 0, 0, 0, 0, 0);
-        this.userAssigned = Arrays.asList("", "", "", "", "", "", "");
+        this.days = Arrays.asList(false, false, false, false, false, false, false);
+        this.userAssigned = "";
         this.progressMode = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
         this.isRepeat = isRepeat;
         this.groupID = "Place Holder Group ID";
@@ -43,7 +43,7 @@ public class ChoreObject {
         this.choreID = choreID;
     }
 
-    public void setDays(int dayIndex, int dayValue){
+    public void setDays(int dayIndex, boolean dayValue){
         this.days.set(dayIndex, dayValue);
     }
 
@@ -51,15 +51,11 @@ public class ChoreObject {
         this.progressMode.set(dayIndex, progressValue);
     }
 
-    public void setUserAssigned(int dayIndex, String user){
-        this.userAssigned.set(dayIndex, user);
-    }
-
     public String getName() {
         return name;
     }
 
-    public List<Integer> getDays() {
+    public List<Boolean> getDays() {
         return days;
     }
 
@@ -67,7 +63,7 @@ public class ChoreObject {
         return progressMode;
     }
 
-    public List<String> getUserAssigned() {
+    public String getUserAssigned() {
         return userAssigned;
     }
 
@@ -91,7 +87,7 @@ public class ChoreObject {
         this.name = name;
     }
 
-    public void setDays(List<Integer> days) {
+    public void setDays(List<Boolean> days) {
         this.days = days;
     }
 
@@ -99,7 +95,7 @@ public class ChoreObject {
         this.progressMode = progressMode;
     }
 
-    public void setUserAssigned(List<String> userAssigned) {
+    public void setUserAssigned(String userAssigned) {
         this.userAssigned = userAssigned;
     }
 }
