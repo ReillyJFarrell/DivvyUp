@@ -16,6 +16,14 @@
     <string name="login">login</string>
     <string name="username">username</string>
     <string name="groups">groups</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="fri">Fri</string>
+    <string name="thu">Thu</string>
+    <string name="sun">Sun</string>
+    <string name="sat">Sat</string>
+    <string name="mon">Mon</string>
+    <string name="add">add</string>
     <string-array name="users_array">
         <item>User 1</item>
         <item>User 2</item>

@@ -70,37 +70,37 @@ public class EditChoreActivity extends AppCompatActivity {
         repeating = findViewById(R.id.repeatingCheckBox);
 
         // should be getting this from bundle extras
-        String choreID = "testID";
-
+        String groupID = "testID";
+        String choreID = "choreID";
 
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveChore(choreID);
+                saveChore(groupID, choreID);
             }
         });
     }
 
-    private void saveChore(String choreID) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private void saveChore(String groupID, String choreID) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child(choreID);
         // save data
-        mDatabase.child("chores").child(choreID).child("userAssigned").setValue(choreName.getText().toString());
+        mDatabase.child("userAssigned").setValue(choreName.getText().toString());
 
-        ArrayList<String> assignedUsers = new ArrayList<String>(Collections.nCopies(7, assignedSpinner.getSelectedItem().toString()));
-        mDatabase.child("chores").child(choreID).child("userAssigned").setValue(assignedUsers);
+        String assignedUser = assignedSpinner.getSelectedItem().toString();
+        mDatabase.child("userAssigned").setValue(assignedUser);
 
-        ArrayList<Integer> days = new ArrayList<Integer>();
+        ArrayList<Boolean> days = new ArrayList<Boolean>();
         for (int i = 0; i < week.size(); i++) {
             if (week.get(i).isChecked()) {
-                days.add(1);
+                days.add(true);
             }
             else {
-                days.add(0);
+                days.add(false);
             }
         }
-        mDatabase.child("chores").child(choreID).child("days").setValue(days);
+        mDatabase.child("days").setValue(days);
 
-        mDatabase.child("chores").child(choreID).child("isRepeat").setValue(repeating.isChecked());
+        mDatabase.child("isRepeat").setValue(repeating.isChecked());
     }
 }
