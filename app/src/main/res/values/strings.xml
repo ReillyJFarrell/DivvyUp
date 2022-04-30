@@ -13,6 +13,9 @@
     <string name="repeating">repeating</string>
     <string name="save">Save</string>
     <string name="deletes_chore">Deletes Chore</string>
+    <string name="login">login</string>
+    <string name="username">username</string>
+    <string name="groups">groups</string>
     <string-array name="users_array">
         <item>User 1</item>
         <item>User 2</item>

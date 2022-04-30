@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 import neu.madcourse.divvyup.R;
 
@@ -35,10 +37,10 @@ public class ChoreAdapter extends RecyclerView.Adapter<ChoreHolder> {
     @Override
     public void onBindViewHolder(ChoreHolder holder, int position) {
         ChoreCard currentChore = listOfChores.get(position);
-        holder.assignedUser.setText(Integer.toString(currentChore.getAssignedUserId()));
-        holder.dueDate.setText(currentChore.getTitle());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        holder.task.setText(formatter.format(currentChore.getDeadline()));
+        holder.assignedUser.setText(currentChore.getAssignedUserId());
+        String date = currentChore.getRepeatedDay().name();
+        holder.dueDate.setText(date);
+        holder.task.setText(currentChore.getTitle());
     }
 
     @Override

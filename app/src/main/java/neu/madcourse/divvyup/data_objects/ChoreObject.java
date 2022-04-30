@@ -15,6 +15,17 @@ public class ChoreObject {
     String choreID;
     Boolean isRepeat;
 
+    public ChoreObject(){
+        this.name = "";
+        this.description = "";
+        this.isRepeat = false;
+        this.days = Arrays.asList(false, false, false, false, false, false, false);
+        this.userAssigned = "";
+        this.progressMode = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
+        this.groupID = "Place Holder Group ID";
+        this.choreID = "Place Holder Chore ID";
+    }
+
     public ChoreObject(String name, String description, Boolean isRepeat){
         this.name = name;
         this.description = description;
@@ -26,6 +37,18 @@ public class ChoreObject {
         this.groupID = "Place Holder Group ID";
         this.choreID = "Place Holder Chore ID";
     }
+
+    public ChoreObject(String name, List<Boolean> days, List<Integer> progressMode, String userAssigned, String groupID, String description, String choreID, Boolean isRepeat) {
+        this.name = name;
+        this.days = days;
+        this.progressMode = progressMode;
+        this.userAssigned = userAssigned;
+        this.groupID = groupID;
+        this.description = description;
+        this.choreID = choreID;
+        this.isRepeat = isRepeat;
+    }
+
 
     public void setDescription(String description) {
         this.description = description;
