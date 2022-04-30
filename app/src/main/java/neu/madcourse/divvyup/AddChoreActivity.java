@@ -48,6 +48,8 @@ public class AddChoreActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignedSpinner.setAdapter(adapter);
 
+
+        week = new ArrayList<>();
         sunday = findViewById(R.id.addSundayCheckbox);
         week.add(sunday);
         monday = findViewById(R.id.addMondayCheckbox);

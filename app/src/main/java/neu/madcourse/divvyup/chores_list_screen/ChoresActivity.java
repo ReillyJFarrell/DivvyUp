@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import neu.madcourse.divvyup.EditChoreActivity;
 import neu.madcourse.divvyup.R;
 import neu.madcourse.divvyup.data_objects.ChoreObject;
 import neu.madcourse.divvyup.data_objects.GroupObject;
@@ -135,11 +138,16 @@ public class ChoresActivity extends AppCompatActivity {
         inProgressRView = findViewById(R.id.idInProgressChoresRecycler);
         completedRView = findViewById(R.id.idCompletedChoresRecycler);
 
+        Activity context = this;
 
         ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
             @Override
             public void onItemClick(int position) {
                 // TODO: Navigate to chores page
+                System.out.println("hi");
+                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
+                editChoreIntent.putExtra("groupID", groupId);
+                startActivity(editChoreIntent);
             }
         };
 
