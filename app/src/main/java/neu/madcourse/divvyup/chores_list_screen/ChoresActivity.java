@@ -260,7 +260,7 @@ public class ChoresActivity extends AppCompatActivity {
 
         Button recap = findViewById(R.id.recapButton);
         Intent intent2 = new Intent(this, RecapActivity.class);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        recap.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
