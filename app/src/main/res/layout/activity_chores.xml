@@ -10,22 +10,23 @@
         android:id="@+id/idBarChart"
         android:layout_width="354dp"
         android:layout_height="69dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.539" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idCompletedChoresRecycler"
         android:layout_width="392dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="96dp"
         android:background="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -106,7 +107,7 @@
         android:text="Recap"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addChoreButton"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idCompletedChoresRecycler"
         app:layout_constraintVertical_bias="1.0" />

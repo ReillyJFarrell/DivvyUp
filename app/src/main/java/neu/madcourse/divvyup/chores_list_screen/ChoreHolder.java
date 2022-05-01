@@ -1,6 +1,7 @@
 package neu.madcourse.divvyup.chores_list_screen;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +12,15 @@ public class ChoreHolder extends RecyclerView.ViewHolder {
     public TextView assignedUser;
     public TextView task;
     public TextView dueDate;
+    public Button moveBtn;
 
     public ChoreHolder(View itemView, final ChoreCardClickListener listener) {
         super(itemView);
         assignedUser = itemView.findViewById(R.id.idAssignedUser);
         task = itemView.findViewById(R.id.idTask);
         dueDate = itemView.findViewById(R.id.idDueDate);
+        moveBtn = itemView.findViewById(R.id.moveButton);
+
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -60,16 +60,23 @@
 
         <TextView
             android:id="@+id/idDueDate"
-            android:layout_width="140dp"
+            android:layout_width="106dp"
             android:layout_height="45dp"
             android:layout_margin="5dp"
             android:layout_marginTop="1dp"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idAssignedUser" />
 
+        <Button
+            android:id="@+id/moveButton"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/idDueDate"
+            app:layout_constraintTop_toBottomOf="@+id/idAssignedUser" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

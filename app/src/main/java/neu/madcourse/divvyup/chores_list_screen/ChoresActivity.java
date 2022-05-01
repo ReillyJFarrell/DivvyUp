@@ -296,6 +296,12 @@ public class ChoresActivity extends AppCompatActivity {
     private void addChore(DataSnapshot snapshot) {
         GroupObject group = snapshot.getValue(GroupObject.class);
         allChoresList.clear();
+        toDoChoresList.clear();
+        toDoChoreAdapter.notifyDataSetChanged();
+        inProgressChoresList.clear();
+        inProgressChoreAdapter.notifyDataSetChanged();
+        completedChoresList.clear();
+        completedChoreAdapter.notifyDataSetChanged();
         for  (ChoreObject chore : group.getChores()) {
 //        ChoreObject chore = snapshot.getValue(ChoreObject.class);
             allChoresList.add(chore);
