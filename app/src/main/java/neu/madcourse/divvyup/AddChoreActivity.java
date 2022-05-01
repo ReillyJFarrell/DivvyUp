@@ -3,6 +3,7 @@ package neu.madcourse.divvyup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -106,6 +107,9 @@ public class AddChoreActivity extends AppCompatActivity {
 
     private void addChore(String groupID) {
         // DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores"); //.child(choreId);
+
+        Activity context = this;
+
         Query currentGroup = FirebaseDatabase.getInstance().getReference().child("groups").orderByKey().equalTo(groupId);
         currentGroup.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -128,6 +132,21 @@ public class AddChoreActivity extends AppCompatActivity {
                 String assignedUser = assignedSpinner.getSelectedItem().toString();
                 // mDatabase.child("userAssigned").setValue(assignedUser);
 
+
+                Iterable<DataSnapshot> toSet = snapshot.getChildren();
+                DataSnapshot snap = toSet.iterator().next();
+                GroupObject currentGroup = snap.getValue(GroupObject.class);
+
+                ArrayList<String> users = new ArrayList<>();
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_selected_item, users);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                assignedSpinner.setAdapter(adapter);
+
+                for (String id : currentGroup.getMembersIDs()) {
+                    users.add(id);
+                    adapter.notifyDataSetChanged();
+                }
+
                 ArrayList<Boolean> days = new ArrayList<Boolean>();
                 for (int i = 0; i < week.size(); i++) {
                     if (week.get(i).isChecked()) {
@@ -141,10 +160,6 @@ public class AddChoreActivity extends AppCompatActivity {
 
                 boolean isRepeat = repeating.isChecked();
                 // mDatabase.child("isRepeat").setValue(repeating.isChecked());
-
-                Iterable<DataSnapshot> toSet = snapshot.getChildren();
-                DataSnapshot snap = toSet.iterator().next();
-                GroupObject currentGroup = snap.getValue(GroupObject.class);
 
                 ChoreObject newChore = new ChoreObject(choreName.getText().toString(), groupId, choreId, assignedUser, days, isRepeat);
                 List<ChoreObject> updatedChores = currentGroup.getChores();
