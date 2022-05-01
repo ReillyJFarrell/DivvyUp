@@ -69,13 +69,13 @@ public class AddChoreActivity extends AppCompatActivity {
         assignedSpinner = (Spinner) findViewById(R.id.addAssignedSpinner);
         // users array should be dynamic, not static
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.users_array, R.layout.spinner_selected_item);
-        ArrayList<String> users = new ArrayList<>();
-        users.add("User 1");
-        users.add("User 2");
-        users.add("User 3");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, users);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        assignedSpinner.setAdapter(adapter);
+//        ArrayList<String> users = new ArrayList<>();
+//        users.add("User 1");
+//        users.add("User 2");
+//        users.add("User 3");
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, users);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        assignedSpinner.setAdapter(adapter);
 
 
         week = new ArrayList<>();
@@ -95,6 +95,34 @@ public class AddChoreActivity extends AppCompatActivity {
         week.add(saturday);
 
         repeating = findViewById(R.id.addRepeatingCheckBox);
+
+        Activity context = this;
+
+        Query currentGroup = FirebaseDatabase.getInstance().getReference().child("groups").orderByKey().equalTo(groupId);
+        currentGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> toSet = snapshot.getChildren();
+                DataSnapshot snap = toSet.iterator().next();
+                GroupObject currentGroup = snap.getValue(GroupObject.class);
+
+
+                ArrayList<String> users = new ArrayList<>();
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_selected_item, users);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                assignedSpinner.setAdapter(adapter);
+
+                for (String id : currentGroup.getMembersIDs()) {
+                    users.add(id);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Button saveButton = findViewById(R.id.addSaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -136,16 +164,6 @@ public class AddChoreActivity extends AppCompatActivity {
                 Iterable<DataSnapshot> toSet = snapshot.getChildren();
                 DataSnapshot snap = toSet.iterator().next();
                 GroupObject currentGroup = snap.getValue(GroupObject.class);
-
-                ArrayList<String> users = new ArrayList<>();
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_selected_item, users);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                assignedSpinner.setAdapter(adapter);
-
-                for (String id : currentGroup.getMembersIDs()) {
-                    users.add(id);
-                    adapter.notifyDataSetChanged();
-                }
 
                 ArrayList<Boolean> days = new ArrayList<Boolean>();
                 for (int i = 0; i < week.size(); i++) {
