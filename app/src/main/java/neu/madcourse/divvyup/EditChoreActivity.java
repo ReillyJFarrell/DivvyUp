@@ -1,5 +1,7 @@
 package neu.madcourse.divvyup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,15 +12,22 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import neu.madcourse.divvyup.data_objects.ChoreObject;
+
 public class EditChoreActivity extends AppCompatActivity {
 
-    EditText choreName;
+    EditText choreNameEditText;
     Spinner assignedSpinner;
 
     CheckBox sunday;
@@ -33,13 +42,26 @@ public class EditChoreActivity extends AppCompatActivity {
 
     CheckBox repeating;
 
+    String currentUser;
+    String groupId = "";
+    String choreId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_chore);
 
-        choreName = findViewById(R.id.choreNameEditView);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.currentUser = extras.getString("userKey");
+            this.groupId = extras.getString("groupId");
+            this.choreId = extras.getString("choreId");
+        }
+        else {
+            this.groupId = "IDDD";
+        }
+
+        choreNameEditText = findViewById(R.id.choreNameEditView);
         // need to read from DB
         assignedSpinner = (Spinner) findViewById(R.id.assignedSpinner);
         // users array should be dynamic, not static
@@ -51,6 +73,7 @@ public class EditChoreActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, users);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignedSpinner.setAdapter(adapter);
+
 
         week = new ArrayList<>();
         sunday = findViewById(R.id.sundayCheckbox);
@@ -70,6 +93,29 @@ public class EditChoreActivity extends AppCompatActivity {
 
         repeating = findViewById(R.id.repeatingCheckBox);
 
+        // set values to match what currently exists in the DB
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child(choreId);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ChoreObject chore = snapshot.getValue(ChoreObject.class);
+                choreNameEditText.setText(chore.getName());
+                repeating.setChecked(chore.getRepeat());
+                sunday.setChecked(chore.getDays().get(0));
+                monday.setChecked(chore.getDays().get(1));
+                tuesday.setChecked(chore.getDays().get(2));
+                wednesday.setChecked(chore.getDays().get(3));
+                thursday.setChecked(chore.getDays().get(4));
+                friday.setChecked(chore.getDays().get(5));
+                saturday.setChecked(chore.getDays().get(6));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         // should be getting this from bundle extras
         String groupID = "testID";
         String choreID = "choreID";
@@ -78,7 +124,7 @@ public class EditChoreActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveChore(groupID, choreID);
+                saveChore(groupId, choreId);
             }
         });
     }
@@ -86,7 +132,7 @@ public class EditChoreActivity extends AppCompatActivity {
     private void saveChore(String groupID, String choreID) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child(choreID);
         // save data
-        mDatabase.child("userAssigned").setValue(choreName.getText().toString());
+        mDatabase.child("userAssigned").setValue(choreNameEditText.getText().toString());
 
         String assignedUser = assignedSpinner.getSelectedItem().toString();
         mDatabase.child("userAssigned").setValue(assignedUser);

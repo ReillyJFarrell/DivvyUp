@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import neu.madcourse.divvyup.AddChoreActivity;
 import neu.madcourse.divvyup.EditChoreActivity;
 import neu.madcourse.divvyup.R;
 import neu.madcourse.divvyup.data_objects.ChoreObject;
@@ -81,11 +83,25 @@ public class ChoresActivity extends AppCompatActivity {
 
         choreDatabase = FirebaseDatabase.getInstance();
         Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-////            this.currentUser = extras.getString("userKey");
-//            this.groupId = extras.getString("groupId");
-//        }
-        this.groupId = "IDDD";
+        if (extras != null) {
+            this.currentUser = extras.getString("userKey");
+            this.groupId = extras.getString("groupId");
+        }
+        else {
+            this.groupId = "IDDD";
+        }
+
+        Activity context = this;
+
+        Button addChoreButton = findViewById(R.id.addChoreButton);
+        addChoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addChoreIntent = new Intent(context, AddChoreActivity.class);
+                addChoreIntent.putExtra("groupId", "YMErXuh");
+                startActivity(addChoreIntent);
+            }
+        });
 
 //        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 //        mDatabase.child("chores").child(choreID).child("name").getValue();
@@ -138,15 +154,13 @@ public class ChoresActivity extends AppCompatActivity {
         inProgressRView = findViewById(R.id.idInProgressChoresRecycler);
         completedRView = findViewById(R.id.idCompletedChoresRecycler);
 
-        Activity context = this;
-
         ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
             @Override
             public void onItemClick(int position) {
                 // TODO: Navigate to chores page
-                System.out.println("hi");
                 Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
-                editChoreIntent.putExtra("groupID", groupId);
+                editChoreIntent.putExtra("groupId", "YMErXuh");
+                editChoreIntent.putExtra("choreId", "test chore id");
                 startActivity(editChoreIntent);
             }
         };
