@@ -229,8 +229,6 @@ public class ChoresActivity extends AppCompatActivity {
         barData = new BarData(barDataSet);
         chart.setData(barData);
 
-//        chart.setDrawGridBackground(false);
-//        chart.setDrawBarShadow(false);
         chart.setDescription(null);
         chart.setPinchZoom(false);
         chart.setDrawValueAboveBar(false);
@@ -244,23 +242,23 @@ public class ChoresActivity extends AppCompatActivity {
         LegendEntry l3 = new LegendEntry("To Do", Legend.LegendForm.DEFAULT,10f,2f,null, Color.RED);
 
         chart.getLegend().setCustom(new LegendEntry[]{l1, l2, l3});
-//                colorClassArray, new String[] {"Completed", "In Progress", "To Do"});
+
+        Button addButton = findViewById(R.id.addChoreButton);
+        Intent intent = new Intent(this, AddChoreActivity.class);
+        addButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                intent.putExtra("userKey", currentUser);
+                intent.putExtra("groupId", groupId);
+
+                startActivity(intent);
+            }
+        });
+
 
     }
 
-//    private void initializeChores(Bundle savedInstanceState) {
-//        if (savedInstanceState != null && savedInstanceState.containsKey(TODO_CHORE_COUNT)) {
-//            if (toDoChoresList != null || toDoChoresList.size() == 0) {
-//                int size = savedInstanceState.getInt(TODO_CHORE_COUNT);
-//
-//                for (int i = 0; i < size; i++) {
-//                    String name = savedInstanceState.getString(TODO_CHORE_KEY + i);
-//                    ChoreCard choreCard = new ChoreCard(name);
-//                    toDoChoresList.add(choreCard);
-//                }
-//            }
-//        }
-//    }
 
     private void updateChart() {
         barDataSet.removeEntry(0);
@@ -269,12 +267,6 @@ public class ChoresActivity extends AppCompatActivity {
         chart.notifyDataSetChanged();
         chart.invalidate();
 
-
-//        barDataSet = new BarDataSet(dataValues1(), "Bar Set");
-//        barDataSet.setColors(colorClassArray);
-//
-//        barData = new BarData(barDataSet);
-//        chart.setData(barData);
     }
 
     private ArrayList<BarEntry> dataValues1() {

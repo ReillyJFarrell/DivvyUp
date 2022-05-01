@@ -28,7 +28,7 @@ public class ChoreCard implements ChoreCardClickListener {
     }
 
     public ChoreCard(DayOfWeek repeatedDay, String title, String assignedUser, Integer status, String choreID) {
-        this.assignedUserId = assignedUserId;
+        this.assignedUserId = assignedUser;
         this.choreID = choreID;
         this.title = title;
         this.status = status;
