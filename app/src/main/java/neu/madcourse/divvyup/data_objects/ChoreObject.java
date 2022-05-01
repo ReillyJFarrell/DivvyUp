@@ -32,7 +32,15 @@ public class ChoreObject {
         this.isRepeat = isRepeat;
         this.days = days;
         this.userAssigned = userAssigned;
-        this.progressMode = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
+        this.progressMode = new ArrayList<Integer>();//Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
+        for (int i = 0; i < days.size(); i++) {
+            if (days.get(i)) {
+                progressMode.add(0);
+            }
+            else {
+                progressMode.add(-1);
+            }
+        }
         this.groupID = groupId;
         this.choreID = choreId;
     }
