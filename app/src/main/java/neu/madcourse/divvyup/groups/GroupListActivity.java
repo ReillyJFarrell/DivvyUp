@@ -322,8 +322,6 @@ public class GroupListActivity extends AppCompatActivity {
 
     private void addItem(int position, String name, String groupID) {
         groupCardList.add(position, new GroupCard(name, groupID));
-//        Toast.makeText(LinkCollectorActivity.this, "Add an item", Toast.LENGTH_SHORT).show();
-
         groupListRviewAdapter.notifyItemInserted(position);
     }
 

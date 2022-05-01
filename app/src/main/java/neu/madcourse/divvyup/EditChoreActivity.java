@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import neu.madcourse.divvyup.chores_list_screen.ChoresActivity;
 import neu.madcourse.divvyup.data_objects.ChoreObject;
 import neu.madcourse.divvyup.data_objects.GroupObject;
 
@@ -49,6 +51,7 @@ public class EditChoreActivity extends AppCompatActivity {
     String currentUser;
     String groupId = "";
     String choreId = "";
+    String group = "";
     int position;
 
     @Override
@@ -62,6 +65,7 @@ public class EditChoreActivity extends AppCompatActivity {
             this.groupId = extras.getString("groupId");
             this.choreId = extras.getString("choreId");
             this.position = extras.getInt("position");
+            this.group = extras.getString("group");
         }
         else {
             this.groupId = "IDDD";
@@ -154,15 +158,30 @@ public class EditChoreActivity extends AppCompatActivity {
             }
         });
 
-        // should be getting this from bundle extras
-        String groupID = "testID";
-        String choreID = "choreID";
 
         Button saveButton = findViewById(R.id.saveButton);
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveChore(groupId, choreId);
+                Intent choresActivityIntent = new Intent(context, ChoresActivity.class);
+                choresActivityIntent.putExtra("userKey", currentUser);
+                choresActivityIntent.putExtra("group", group);
+                choresActivityIntent.putExtra("groupID", groupId);
+                startActivity(choresActivityIntent);
+            }
+        });
+
+        Button cancelButton = findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent choresActivityIntent = new Intent(context, ChoresActivity.class);
+                choresActivityIntent.putExtra("userKey", currentUser);
+                choresActivityIntent.putExtra("group", group);
+                choresActivityIntent.putExtra("groupID", groupId);
+                startActivity(choresActivityIntent);
             }
         });
     }

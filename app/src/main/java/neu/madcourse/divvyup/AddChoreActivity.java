@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import neu.madcourse.divvyup.chores_list_screen.ChoresActivity;
 import neu.madcourse.divvyup.data_objects.ChoreObject;
 import neu.madcourse.divvyup.data_objects.GroupObject;
 import neu.madcourse.divvyup.data_objects.PastGroupObject;
@@ -47,6 +49,7 @@ public class AddChoreActivity extends AppCompatActivity {
 
     String currentUser;
     String groupId;
+    String group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class AddChoreActivity extends AppCompatActivity {
         if (extras != null) {
             this.currentUser = extras.getString("userKey");
             this.groupId = extras.getString("groupId");
+            this.group = extras.getString("group");
         }
         else {
             this.groupId = "IDDD";
@@ -65,17 +69,7 @@ public class AddChoreActivity extends AppCompatActivity {
         System.out.println(groupId);
 
         choreName = findViewById(R.id.addChoreNameEditView);
-        // need to read from DB
         assignedSpinner = (Spinner) findViewById(R.id.addAssignedSpinner);
-        // users array should be dynamic, not static
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.users_array, R.layout.spinner_selected_item);
-//        ArrayList<String> users = new ArrayList<>();
-//        users.add("User 1");
-//        users.add("User 2");
-//        users.add("User 3");
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, users);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        assignedSpinner.setAdapter(adapter);
 
 
         week = new ArrayList<>();
@@ -129,6 +123,23 @@ public class AddChoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addChore(groupId);
+                Intent choresActivityIntent = new Intent(context, ChoresActivity.class);
+                choresActivityIntent.putExtra("userKey", currentUser);
+                choresActivityIntent.putExtra("group", group);
+                choresActivityIntent.putExtra("groupID", groupId);
+                startActivity(choresActivityIntent);
+            }
+        });
+
+        Button cancelButton = findViewById(R.id.addCancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent choresActivityIntent = new Intent(context, ChoresActivity.class);
+                choresActivityIntent.putExtra("userKey", currentUser);
+                choresActivityIntent.putExtra("group", group);
+                choresActivityIntent.putExtra("groupID", groupId);
+                startActivity(choresActivityIntent);
             }
         });
     }
@@ -174,10 +185,8 @@ public class AddChoreActivity extends AppCompatActivity {
                         days.add(false);
                     }
                 }
-                // mDatabase.child("days").setValue(days);
 
                 boolean isRepeat = repeating.isChecked();
-                // mDatabase.child("isRepeat").setValue(repeating.isChecked());
 
                 ChoreObject newChore = new ChoreObject(choreName.getText().toString(), groupId, choreId, assignedUser, days, isRepeat);
                 List<ChoreObject> updatedChores = currentGroup.getChores();
