@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -141,6 +142,32 @@ public class ChoresActivity extends AppCompatActivity {
         ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
             @Override
             public void onItemClick(int position) {
+                editAlert.setNeutralButton("Increment", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DayOfWeek day = toDoChoresList.get(position).getRepeatedDay();
+                        int index = getDayOfWeekRev(day);
+                        Query currentChoreQ = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").orderByChild("choreID").equalTo(toDoChoresList.get(position).getChoreID());
+
+                        currentChoreQ.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    Iterable<DataSnapshot> currentChore = snapshot.getChildren();
+                                    ChoreObject choreFound = currentChore.iterator().next().getValue(ChoreObject.class);
+                                    choreFound.setProgressMode(index, 1);
+                                    DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(Integer.toString(position));
+                                    newRef.setValue(choreFound);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
 
                 editAlert.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
@@ -414,6 +441,27 @@ public class ChoresActivity extends AppCompatActivity {
         }
     }
 
+    public int getDayOfWeekRev(DayOfWeek number) {
+        // changed to + 1 to fix this
+        switch (number) {
+            case SUNDAY:
+                return 0;
+            case MONDAY:
+                return 1;
+            case TUESDAY:
+                return 2;
+            case WEDNESDAY:
+                return 3;
+            case THURSDAY:
+                return 4;
+            case FRIDAY:
+                return 5;
+            case SATURDAY:
+                return 6;
+            default: throw new IllegalArgumentException("Not a valid day number");
+        }
+    }
+
     public void assignList(DayOfWeek day, String title, String assigned, int progress, String choreID) {
         ChoreCard newChoreCard = new ChoreCard(day, title, assigned, progress, choreID);
         switch (progress) {
@@ -440,9 +488,9 @@ public class ChoresActivity extends AppCompatActivity {
 //        return colors;
 //    }
 
-    @Override
-    public void onBackPressed() {
-        this.finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        this.finish();
+//    }
 
 }
