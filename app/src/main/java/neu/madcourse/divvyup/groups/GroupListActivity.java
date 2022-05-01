@@ -107,14 +107,43 @@ public class GroupListActivity extends AppCompatActivity {
 
         DatabaseReference allGroups = groupDatabase.getReference(FIELD_GROUPS);
 
-        allGroups.addListenerForSingleValueEvent(
-                new ValueEventListener() {
+//        allGroups.addListenerForSingleValueEvent(
+//                new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        groupCardList.clear();
+//                        allGroupsList.clear();
+//                        if (snapshot.exists()) {
+//                            for (DataSnapshot snap : snapshot.getChildren()) {
+//                                GroupObject group = snap.getValue(GroupObject.class);
+//                                List<String> memberIDs = group.getMembersIDs();
+//                                for (String memberID : memberIDs) {
+//                                    if (memberID.equals(currentUser)) {
+//                                        addItem(0, group.getGroupName(), group.getIDCode());
+//                                    }
+//                                    allGroupsList.add(group);
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                }
+//        );
+
+        allGroups.addChildEventListener(
+                new ChildEventListener() {
+
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        groupCardList.clear();
-                        allGroupsList.clear();
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                        groupCardList.clear();
+//                        allGroupsList.clear();
                         if (snapshot.exists()) {
-                            for (DataSnapshot snap : snapshot.getChildren()) {
+//                            for (DataSnapshot snap : snapshot.getChildren()) {
+                            DataSnapshot snap = snapshot;
                                 GroupObject group = snap.getValue(GroupObject.class);
                                 List<String> memberIDs = group.getMembersIDs();
                                 for (String memberID : memberIDs) {
@@ -123,89 +152,45 @@ public class GroupListActivity extends AppCompatActivity {
                                     }
                                     allGroupsList.add(group);
                                 }
-                            }
+//                            }
                         }
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                        groupCardList.clear();
+//                        allGroupsList.clear();
+//                        if (snapshot.exists()) {
+////                            for (DataSnapshot snap : snapshot.getChildren()) {
+//                                DataSnapshot snap = snapshot;
+//                                GroupObject group = snap.getValue(GroupObject.class);
+//                                List<String> memberIDs = group.getMembersIDs();
+//                                for (String memberID : memberIDs) {
+//                                    if (memberID.equals(currentUser)) {
+//                                        addItem(0, group.getGroupName(), group.getIDCode());
+//                                    }
+//                                    allGroupsList.add(group);
+//                                }
+////                            }
+//                        }
+                    }
 
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
                     }
                 }
         );
 
-
-
-
-//        allGroups.addValueEventListener(new ValueEventListener() {
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (loadingState != 0){
-//                    return;
-//                }
-//                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-//
-//                        String receiver = ds.child("receiver").getValue(String.class);
-//                        String sender = ds.child("sender").getValue(String.class);
-//                        if (receiver == null || sender == null){
-//                            continue;
-//                        }
-//                        if (groups.contains(receiver) && groups.contains(sender)){
-//                            continue;
-//                        }else {
-//                            if (!groups.contains(receiver)) {
-//                                if (receiver.equals(currentUser)){
-//                                    newUser = 0;
-//                                    continue;
-//                                }
-//
-//                                GroupCard conversationCardReceiver = new GroupCard(receiver);
-//                                groupCardList.add(conversationCardReceiver);
-//                                groupListRviewAdapter.notifyItemInserted(groupCardList.size() - 1);
-//                                groups.add(receiver);
-//                            }else {
-//                                if (currentUser.equals(sender)){
-//                                    newUser = 0;
-//                                    continue;
-//                                }
-//                                if (sender.equals("00000000")){
-//                                    continue;
-//                                }
-//                                GroupCard conversationCardReceiver = new GroupCard(sender);
-//                                groupCardList.add(conversationCardReceiver);
-//                                groupListRviewAdapter.notifyItemInserted(groupCardList.size() - 1);
-//                                groups.add(sender);
-//                            }
-//                        }
-//
-//
-//                }
-//
-//                if (groups.size() == 0){
-//
-//                    FirebaseDatabase chatDatabase = FirebaseDatabase.getInstance();
-//                    DatabaseReference ref = chatDatabase.getReference().child("messages");
-//                    DatabaseReference pRef = ref.push();
-//                }
-//                loadingState = 1;
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                throw databaseError.toException();
-//            }
-//        });
     }
 
-//    private void doCalculations() {
-//        for (GroupObject group : allGroupsList) {
-//            List<String> memberIDs = group.getMembersIDs();
-//            for (String memberID : memberIDs) {
-//                if (memberID.equals(this.currentUser)) {
-//                    addItem(0, group.getGroupName(), group.getIDCode());
-//                }
-//            }
-//        }
-//    }
 
     private String addGroupToDB(String groupName){
 
@@ -311,7 +296,7 @@ public class GroupListActivity extends AppCompatActivity {
                 String newItemName = newItem_name.getText().toString();
                 String code = addGroupToDB(newItemName);
                 String snackMessage = "";
-                addItem(0, newItemName, code);
+//                addItem(0, newItemName, code);
                 snackMessage = "New Group Created";
                 dialog.dismiss();
 

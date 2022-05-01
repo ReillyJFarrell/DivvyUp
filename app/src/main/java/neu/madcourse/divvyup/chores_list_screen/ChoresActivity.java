@@ -40,6 +40,7 @@ import neu.madcourse.divvyup.EditChoreActivity;
 import neu.madcourse.divvyup.R;
 import neu.madcourse.divvyup.data_objects.ChoreObject;
 import neu.madcourse.divvyup.data_objects.GroupObject;
+import neu.madcourse.divvyup.recap.RecapActivity;
 
 public class ChoresActivity extends AppCompatActivity {
 
@@ -254,6 +255,19 @@ public class ChoresActivity extends AppCompatActivity {
                 intent.putExtra("groupId", groupId);
 
                 startActivity(intent);
+            }
+        });
+
+        Button recap = findViewById(R.id.recapButton);
+        Intent intent2 = new Intent(this, RecapActivity.class);
+        addButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                intent2.putExtra("userKey", currentUser);
+                intent2.putExtra("groupId", groupId);
+
+                startActivity(intent2);
             }
         });
 
