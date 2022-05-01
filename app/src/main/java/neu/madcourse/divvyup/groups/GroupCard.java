@@ -4,6 +4,9 @@ public class GroupCard {
     private String name;
     private String groupID;
 
+    public GroupCard() {
+    }
+
     public GroupCard(String name, String groupID) {
         this.name = name;
         this.groupID = groupID;

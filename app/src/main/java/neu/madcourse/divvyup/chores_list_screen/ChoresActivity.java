@@ -49,6 +49,8 @@ public class ChoresActivity extends AppCompatActivity {
     private RecyclerView inProgressRView;
     private RecyclerView completedRView;
     private BarChart chart;
+    private BarDataSet barDataSet;
+    private BarData barData;
 
     private FirebaseDatabase choreDatabase;
 
@@ -72,6 +74,7 @@ public class ChoresActivity extends AppCompatActivity {
 
     String currentUser;
     String groupId;
+    String group;
 
 
     @Override
@@ -81,11 +84,11 @@ public class ChoresActivity extends AppCompatActivity {
 
         choreDatabase = FirebaseDatabase.getInstance();
         Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-////            this.currentUser = extras.getString("userKey");
-//            this.groupId = extras.getString("groupId");
-//        }
-        this.groupId = "IDDD";
+        if (extras != null) {
+            this.currentUser = extras.getString("userKey");
+            this.groupId = extras.getString("groupID");
+            this.group = extras.getString("group");
+        }
 
 //        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 //        mDatabase.child("chores").child(choreID).child("name").getValue();
@@ -97,6 +100,7 @@ public class ChoresActivity extends AppCompatActivity {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         addChore(snapshot);
+                        updateChart();
 //                        String receiver = snapshot.child("groupId").getValue(String.class);
 //
 //                        if (currentUser.equals(receiver)) {
@@ -108,6 +112,7 @@ public class ChoresActivity extends AppCompatActivity {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         addChore(snapshot);
+                        updateChart();
                     }
 
                     @Override
@@ -127,7 +132,6 @@ public class ChoresActivity extends AppCompatActivity {
                 }
         );
 
-        toDoChoresList.add(new ChoreCard(DayOfWeek.MONDAY, "Dishes", "Bob", 0));
 
 
         toDoLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -183,10 +187,10 @@ public class ChoresActivity extends AppCompatActivity {
 
         chart = findViewById(R.id.idBarChart);
 
-        BarDataSet barDataSet = new BarDataSet(dataValues1(), "Bar Set");
+        barDataSet = new BarDataSet(dataValues1(), "Bar Set");
         barDataSet.setColors(colorClassArray);
 
-        BarData barData = new BarData(barDataSet);
+        barData = new BarData(barDataSet);
         chart.setData(barData);
 
 //        chart.setDrawGridBackground(false);
@@ -221,6 +225,21 @@ public class ChoresActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
+
+    private void updateChart() {
+        barDataSet.removeEntry(0);
+        barData.addEntry(dataValues1().get(0), 0);
+        barData.notifyDataChanged();
+        chart.notifyDataSetChanged();
+        chart.invalidate();
+
+
+//        barDataSet = new BarDataSet(dataValues1(), "Bar Set");
+//        barDataSet.setColors(colorClassArray);
+//
+//        barData = new BarData(barDataSet);
+//        chart.setData(barData);
+    }
 
     private ArrayList<BarEntry> dataValues1() {
         ArrayList<BarEntry> dataVals = new ArrayList<>();
@@ -278,12 +297,16 @@ public class ChoresActivity extends AppCompatActivity {
             case 0:
                 toDoChoresList.add(newChoreCard);
                 toDoChoreAdapter.notifyItemInserted(toDoChoresList.size() - 1);
+                break;
             case 1:
                 inProgressChoresList.add(newChoreCard);
-                inProgressChoreAdapter.notifyItemInserted(toDoChoresList.size() - 1);
+                inProgressChoreAdapter.notifyItemInserted(inProgressChoresList.size() - 1);
+                break;
             case 2:
                 completedChoresList.add(newChoreCard);
-                completedChoreAdapter.notifyItemInserted(toDoChoresList.size() - 1);
+                completedChoreAdapter.notifyItemInserted(completedChoresList.size() - 1);
+                break;
+            default: break;
         }
     }
 //

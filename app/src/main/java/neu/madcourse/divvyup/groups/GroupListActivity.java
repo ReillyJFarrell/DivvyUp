@@ -19,19 +19,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.nio.charset.Charset;
+import java.security.acl.Group;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import neu.madcourse.divvyup.R;
 import neu.madcourse.divvyup.data_objects.GroupObject;
+import neu.madcourse.divvyup.data_objects.UserObject;
 
 
 public class GroupListActivity extends AppCompatActivity {
 
-    private ArrayList<GroupCard> groupCardList = new ArrayList<>();
+    private ArrayList<GroupCard> groupCardList;
     private RecyclerView recyclerView;
     private GroupListAdapter groupListRviewAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -58,9 +64,9 @@ public class GroupListActivity extends AppCompatActivity {
     private EditText newItem_name, newItem_url;
     private Button newItem_save, newItem_cancel;
 
-    ArrayList<String> groups = new ArrayList<>();
+
+    List<GroupObject> allGroupsList;
     String currentUser;
-    String[] groupIDs;
     private Integer indexCount = 0;
     private Integer loadingState = 0;
 
@@ -69,11 +75,16 @@ public class GroupListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
 
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             this.currentUser = extras.getString("userKey");
-            this.groupIDs = extras.getStringArray("groups");
         }
+
+        groupCardList = new ArrayList<>();
+        allGroupsList = new ArrayList<>();
+
+        createRecyclerView();
 
         addButton = findViewById(R.id.addGroupBtn);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +92,7 @@ public class GroupListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 generateAddDialog();
             }
+
         });
 
         createButton = findViewById(R.id.createGroupBtn);
@@ -91,43 +103,37 @@ public class GroupListActivity extends AppCompatActivity {
             }
         });
 
-        createRecyclerView();
-
         groupDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference allUsers = groupDatabase.getReference().child(FIELD_USERS);
-        DatabaseReference allGroups = groupDatabase.getReference().child(FIELD_GROUPS);
+        DatabaseReference allGroups = groupDatabase.getReference(FIELD_GROUPS);
 
-//        allUsers.addChildEventListener(
-//                new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                        String groupId = snapshot.child(FIELD_GROUP).getValue(String.class);
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-////                        addMessage(snapshot);
-////                        sendNotification();
-//                    }
-//
-//                    @Override
-//                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                }
-//        );
+        allGroups.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        groupCardList.clear();
+                        allGroupsList.clear();
+                        if (snapshot.exists()) {
+                            for (DataSnapshot snap : snapshot.getChildren()) {
+                                GroupObject group = snap.getValue(GroupObject.class);
+                                List<String> memberIDs = group.getMembersIDs();
+                                for (String memberID : memberIDs) {
+                                    if (memberID.equals(currentUser)) {
+                                        addItem(0, group.getGroupName(), group.getIDCode());
+                                    }
+                                    allGroupsList.add(group);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                }
+        );
+
 
 
 
@@ -190,10 +196,21 @@ public class GroupListActivity extends AppCompatActivity {
 //        });
     }
 
+//    private void doCalculations() {
+//        for (GroupObject group : allGroupsList) {
+//            List<String> memberIDs = group.getMembersIDs();
+//            for (String memberID : memberIDs) {
+//                if (memberID.equals(this.currentUser)) {
+//                    addItem(0, group.getGroupName(), group.getIDCode());
+//                }
+//            }
+//        }
+//    }
+
     private String addGroupToDB(String groupName){
-        DatabaseReference ref = this.groupDatabase.getReference().child("groups");
-        DatabaseReference newPostRef = ref.push();
+
         // Random String for groupID
+        // Taken from https://www.baeldung.com/java-random-string
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 7;
@@ -207,8 +224,11 @@ public class GroupListActivity extends AppCompatActivity {
 
         System.out.println(generatedString);
 
-        GroupObject testGroup = new GroupObject(generatedString, Arrays.asList(this.currentUser), new ArrayList<>(), "Test Group Name");
-        newPostRef.setValue(testGroup);
+        DatabaseReference ref = this.groupDatabase.getReference("groups").child(generatedString);
+//        DatabaseReference newPostRef = ref.push();
+
+        GroupObject testGroup = new GroupObject(generatedString, Arrays.asList(this.currentUser), new ArrayList<>(), groupName);
+        ref.setValue(testGroup);
         return generatedString;
     }
 
@@ -230,15 +250,28 @@ public class GroupListActivity extends AppCompatActivity {
                 String newItemNameString = newItem_name.getText().toString();
                 String snackMessage = "";
                 //TODO: QUERY DATABASE TO CROSS-REFERENCE CODE
-//                if() {
-//
-//                    addItem(0, newItemNameString, newItemUrlString);
-//                    snackMessage = "New Item Created";
-//                } else {
-//                    System.out.println("URL not valid");
-//                    System.out.println(newItemUrlString);
-//                    snackMessage = "Please re-enter URL in proper format";
-//                }
+
+                GroupObject canAdd = null;
+                for (GroupObject group : allGroupsList) {
+                    if (group.getIDCode().equals(newItemNameString)) {
+                        canAdd = group;
+                    }
+                }
+                for (GroupCard group : groupCardList) {
+                    if (newItemNameString.equals(group.getGroupID())) {{
+                        canAdd = null;
+                    }}
+                }
+                if(canAdd != null) {
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("groups").child(newItemNameString).child("membersIDs");
+                    List<String> members = canAdd.getMembersIDs();
+                    members.add(currentUser);
+                    mDatabase.setValue(members);
+                    addItem(0, canAdd.getGroupName(), newItemNameString);
+                    snackMessage = "New Group Added";
+                } else {
+                    snackMessage = "Please re-enter a proper groupID";
+                }
                 dialog.dismiss();
 
                 Snackbar.make(findViewById(android.R.id.content), snackMessage, Snackbar.LENGTH_LONG)
@@ -268,7 +301,6 @@ public class GroupListActivity extends AppCompatActivity {
         newItem_save = (Button) itemPopupView.findViewById(R.id.save_button);
         newItem_cancel = (Button) itemPopupView.findViewById(R.id.cancel_button);
 
-
         dialogBuilder.setView(itemPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -280,7 +312,7 @@ public class GroupListActivity extends AppCompatActivity {
                 String code = addGroupToDB(newItemName);
                 String snackMessage = "";
                 addItem(0, newItemName, code);
-                snackMessage = "New Item Created";
+                snackMessage = "New Group Created";
                 dialog.dismiss();
 
                 Snackbar.make(findViewById(android.R.id.content), snackMessage, Snackbar.LENGTH_LONG)

@@ -18,6 +18,13 @@ public class GroupObject {
 
     }
 
+    public GroupObject(String IDCode, List<String> membersIDs, String groupName){
+        this.membersIDs = membersIDs;
+        this.chores = new ArrayList<>();
+        this.IDCode = IDCode;
+        this.groupName = groupName;
+    }
+
     public GroupObject(String IDCode, List<String> membersIDs, List<ChoreObject> chores, String groupName){
         this.membersIDs = membersIDs;
         this.chores = chores;

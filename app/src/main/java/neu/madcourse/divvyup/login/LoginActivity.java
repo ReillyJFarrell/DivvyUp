@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase userDatabase;
 
     DatabaseReference dbUsers;
-    private List<UserObject> userList;
     private List<UserObject> usersList;
 
 
@@ -46,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
 
         userDatabase = FirebaseDatabase.getInstance();
         dbUsers = userDatabase.getReference(FIELD_USERS);
-        userList = new ArrayList<>();
         usersList = new ArrayList<>();
 
         dbUsers.addListenerForSingleValueEvent(valueEventListenerList);
@@ -68,11 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 if (actualUser == null) {
+                    UserObject object = new UserObject(name, "Device ID");
+                    usersList.add(object);
                     DatabaseReference newPostRef = dbUsers.push();
-                    newPostRef.setValue(new UserObject(name, "Device ID"));
-                    intent.putExtra("groups", new String[0]);
-                } else {
-                    intent.putExtra("groups", actualUser.getGroupIDs().toArray());
+                    newPostRef.setValue(object);
                 }
 
                 intent.putExtra("userKey", name);

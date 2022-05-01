@@ -13,12 +13,12 @@ import neu.madcourse.divvyup.R;
 
 public class GroupListAdapter extends RecyclerView.Adapter<GroupListRviewHolder> {
 
-    private ArrayList<GroupCard> conversationCardList;
+    private ArrayList<GroupCard> groupCardList;
     private Activity context;
     private String currentUser;
 
-    public GroupListAdapter(ArrayList<GroupCard> conversationCardList, Activity context, String currentUser) {
-        this.conversationCardList = conversationCardList;
+    public GroupListAdapter(ArrayList<GroupCard> groupCardList, Activity context, String currentUser) {
+        this.groupCardList = groupCardList;
         this.context = context;
         this.currentUser = currentUser;
     }
@@ -31,13 +31,13 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListRviewHolder>
 
     @Override
     public void onBindViewHolder(GroupListRviewHolder holder, int position) {
-        GroupCard currentGroup = conversationCardList.get(position);
+        GroupCard currentGroup = groupCardList.get(position);
         holder.groupNameTextView.setText(currentGroup.getName());
         holder.groupIdView.setText(currentGroup.getGroupID());
     }
 
     @Override
     public int getItemCount() {
-        return conversationCardList.size();
+        return groupCardList.size();
     }
 }

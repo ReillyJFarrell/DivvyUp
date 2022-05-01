@@ -32,7 +32,7 @@ public class GroupListRviewHolder extends RecyclerView.ViewHolder {
                Intent conversationIntent = new Intent(context, ChoresActivity.class);
                conversationIntent.putExtra("userKey", currentUser);
                conversationIntent.putExtra("group", groupNameTextView.getText().toString());
-               conversationIntent.putExtra("groupID", groupNameTextView.getText().toString());
+               conversationIntent.putExtra("groupID", groupIdView.getText().toString());
                context.startActivity(conversationIntent);
            }
         });
