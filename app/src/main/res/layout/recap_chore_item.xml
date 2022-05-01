@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:outlineProvider="paddedBounds"
+    app:cardBackgroundColor="#fff">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/choreNameRecap"
+            android:layout_width="180dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:text="Take the dog to the park"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/progImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/progImage"
+            android:layout_width="52dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/small_done" />
+
+        <TextView
+            android:id="@+id/assignedUserRecap"
+            android:layout_width="137dp"
+            android:layout_height="24dp"
+            android:gravity="center_vertical"
+            android:text="Assigned: Ted"
+            android:textAlignment="center"
+            android:textColor="#070707"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/choreNameRecap"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tuesday"
+            app:layout_constraintStart_toEndOf="@+id/choreNameRecap"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="Mo" />
+
+        <TextView
+            android:id="@+id/tuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/wednesday"
+            app:layout_constraintStart_toEndOf="@+id/monday"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="Tu" />
+
+        <TextView
+            android:id="@+id/thursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/friday"
+            app:layout_constraintStart_toEndOf="@+id/wednesday"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="Th" />
+
+        <TextView
+            android:id="@+id/friday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/saturday"
+            app:layout_constraintStart_toEndOf="@+id/thursday"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="Fr" />
+
+        <TextView
+            android:id="@+id/saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sunday"
+            app:layout_constraintStart_toEndOf="@+id/friday"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="Sa" />
+
+        <TextView
+            android:id="@+id/wednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/thursday"
+            app:layout_constraintStart_toEndOf="@+id/tuesday"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="We" />
+
+        <TextView
+            android:id="@+id/sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="TextView"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/saturday"
+            app:layout_constraintTop_toBottomOf="@+id/assignedUserRecap"
+            tools:text="Su" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

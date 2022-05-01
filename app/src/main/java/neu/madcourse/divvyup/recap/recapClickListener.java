@@ -1,6 +1,6 @@
 package neu.madcourse.divvyup.recap;
 
-public interface chatMessageClickListener {
+public interface recapClickListener {
 
     void onItemClick(int position);
 }

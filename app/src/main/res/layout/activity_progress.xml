@@ -6,18 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".recap.RecapActivity">
 
+    <TextView
+        android:id="@+id/group_name_recap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#0E0E0E"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/choreProgressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/choreProgressBar"
         style="@android:style/Widget.Material.ProgressBar.Large"
-        android:layout_width="248dp"
-        android:layout_height="202dp"
+        android:layout_width="203dp"
+        android:layout_height="196dp"
         android:indeterminateOnly="false"
         android:max="100"
         android:progress="0"
         android:progressDrawable="@drawable/prog_bar_element"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/recapRView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:progress="0" />
@@ -26,10 +38,19 @@
         android:id="@+id/progress_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:textSize="48sp"
+        android:text="0"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/choreProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/choreProgressBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recapRView"
+        android:layout_width="411dp"
+        android:layout_height="414dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

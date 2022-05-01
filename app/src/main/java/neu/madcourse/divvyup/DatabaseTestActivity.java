@@ -60,7 +60,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
     }
 
     private void doAddGroupToDB(){
-        DatabaseReference ref = this.database.getReference().child("groups");
+        DatabaseReference ref = this.database.getReference().child("pastGroups");
         DatabaseReference newPostRef = ref.push();
         ChoreObject testChore = new ChoreObject("Test chore", "This is a test chore", true);
         GroupObject testGroup = new GroupObject("IDDD", Arrays.asList("user1", "user2"), Arrays.asList(testChore), "Test Group Name");
