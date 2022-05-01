@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -96,6 +98,68 @@ public class ChoresActivity extends AppCompatActivity {
         }
 
 
+        AlertDialog.Builder editAlert = new AlertDialog.Builder(this);
+        editAlert.setTitle("New Link Address");
+        editAlert.setMessage("Enter link address below.");
+        editAlert.setPositiveButton("Pos", null);
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Toast.makeText(ChoresActivity.this, "Possing", Toast.LENGTH_SHORT).show();
+//                dialogInterface.dismiss();
+//            }
+//        });
+//
+        editAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Toast.makeText(ChoresActivity.this, "Cancelling", Toast.LENGTH_SHORT).show();
+//                dialogInterface.dismiss();
+//                dialogInterface.dismiss();
+
+//            }
+//        });
+
+        editAlert.setNeutralButton("Increment", null);
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Toast.makeText(ChoresActivity.this, "Incrementing", Toast.LENGTH_SHORT).show();
+//                dialogInterface.dismiss();
+//            }
+//        });
+
+        Activity context = this;
+
+        ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                editAlert.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
+                        editChoreIntent.putExtra("groupId", groupId);
+                        editChoreIntent.putExtra("position", position);
+                        editChoreIntent.putExtra("userKey", currentUser);
+                        String choreId = toDoChoresList.get(position).getChoreID();
+                        editChoreIntent.putExtra("choreId", choreId);
+                        System.out.println("open edit chore");
+                        startActivity(editChoreIntent);
+                    }
+                });
+
+                // TODO: Navigate to chores page
+
+                editAlert.show();
+
+            }
+        };
+
+
 //        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 //        mDatabase.child("chores").child(choreID).child("name").getValue();
 
@@ -148,23 +212,23 @@ public class ChoresActivity extends AppCompatActivity {
         inProgressRView = findViewById(R.id.idInProgressChoresRecycler);
         completedRView = findViewById(R.id.idCompletedChoresRecycler);
 
-        Activity context = this;
 
-        ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // TODO: Navigate to chores page
-                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
-                editChoreIntent.putExtra("groupId", groupId);
-                editChoreIntent.putExtra("position", position);
-                editChoreIntent.putExtra("userKey", currentUser);
-                String choreId = toDoChoresList.get(position).getChoreID();
-                editChoreIntent.putExtra("choreId", choreId);
-                editChoreIntent.putExtra("group", group);
-                System.out.println("open edit chore");
-                startActivity(editChoreIntent);
-            }
-        };
+
+//        ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                // TODO: Navigate to chores page
+//                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
+//                editChoreIntent.putExtra("groupId", groupId);
+//                editChoreIntent.putExtra("position", position);
+//                editChoreIntent.putExtra("userKey", currentUser);
+//                String choreId = toDoChoresList.get(position).getChoreID();
+//                editChoreIntent.putExtra("choreId", choreId);
+//                editChoreIntent.putExtra("group", group);
+//                System.out.println("open edit chore");
+//                startActivity(editChoreIntent);
+//            }
+//        };
 
         ChoreCardClickListener choreCardClickListener2 = new ChoreCardClickListener() {
             @Override
