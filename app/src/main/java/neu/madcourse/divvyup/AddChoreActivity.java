@@ -30,10 +30,22 @@ public class AddChoreActivity extends AppCompatActivity {
 
     CheckBox repeating;
 
+    String currentUser;
+    String groupId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_chore);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.currentUser = extras.getString("userKey");
+            this.groupId = extras.getString("groupId");
+        }
+        else {
+            this.groupId = "IDDD";
+        }
 
         choreName = findViewById(R.id.addChoreNameEditView);
         // need to read from DB
@@ -66,10 +78,6 @@ public class AddChoreActivity extends AppCompatActivity {
         week.add(saturday);
 
         repeating = findViewById(R.id.addRepeatingCheckBox);
-
-        // should be getting this from bundle extras
-        String groupID = "testID";
-        String choreID = "choreID";
     }
 
     private void addChore(String groupID) {
@@ -93,6 +101,9 @@ public class AddChoreActivity extends AppCompatActivity {
         mDatabase.child("days").setValue(days);
 
         mDatabase.child("isRepeat").setValue(repeating.isChecked());
+
+        // TODO: generate id for chore I think?
+        // mDatabase.child("choreID").setValue("test chore id");
 
     }
 }
