@@ -22,8 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import neu.madcourse.divvyup.data_objects.ChoreObject;
+import neu.madcourse.divvyup.data_objects.GroupObject;
 
 public class EditChoreActivity extends AppCompatActivity {
 
@@ -45,6 +48,7 @@ public class EditChoreActivity extends AppCompatActivity {
     String currentUser;
     String groupId = "";
     String choreId = "";
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class EditChoreActivity extends AppCompatActivity {
             this.currentUser = extras.getString("userKey");
             this.groupId = extras.getString("groupId");
             this.choreId = extras.getString("choreId");
+            this.position = extras.getInt("position");
         }
         else {
             this.groupId = "IDDD";
@@ -94,12 +99,14 @@ public class EditChoreActivity extends AppCompatActivity {
         repeating = findViewById(R.id.repeatingCheckBox);
 
         // set values to match what currently exists in the DB
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(choreId);
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query oldChore = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").orderByChild("choreID").equalTo(choreId);
+        oldChore.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println(groupId + " " + choreId);
-                ChoreObject chore = snapshot.getValue(ChoreObject.class);
+                Iterable<DataSnapshot> toSet = snapshot.getChildren();
+                DataSnapshot snap = toSet.iterator().next();;
+                ChoreObject chore = snap.getValue(ChoreObject.class);
                 choreNameEditText.setText(chore.getName());
                 repeating.setChecked(chore.getRepeat());
                 sunday.setChecked(chore.getDays().get(0));
@@ -133,22 +140,36 @@ public class EditChoreActivity extends AppCompatActivity {
     private void saveChore(String groupID, String choreID) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child(choreID);
         // save data
-        mDatabase.child("name").setValue(choreNameEditText.getText().toString());
 
-        String assignedUser = assignedSpinner.getSelectedItem().toString();
-        mDatabase.child("userAssigned").setValue(assignedUser);
+        Query currentChore = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores").orderByChild("choreID").equalTo(choreID);
+        currentChore.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        ArrayList<Boolean> days = new ArrayList<Boolean>();
-        for (int i = 0; i < week.size(); i++) {
-            if (week.get(i).isChecked()) {
-                days.add(true);
+                String assignedUser = assignedSpinner.getSelectedItem().toString();
+                ArrayList<Boolean> days = new ArrayList<Boolean>();
+                for (int i = 0; i < week.size(); i++) {
+                    if (week.get(i).isChecked()) {
+                        days.add(true);
+                    }
+                    else {
+                        days.add(false);
+                    }
+                }
+
+                //Iterable<DataSnapshot> toSet = snapshot.getChildren();
+                //DataSnapshot snap = toSet.iterator().next();
+                //GroupObject currentGroup = snap.getValue(GroupObject.class);
+
+                ChoreObject editedChore = new ChoreObject(choreNameEditText.getText().toString(), groupID, choreID, assignedUser, days, repeating.isChecked());
+                DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores").child(Integer.toString(position));
+                newRef.setValue(editedChore);
             }
-            else {
-                days.add(false);
-            }
-        }
-        mDatabase.child("days").setValue(days);
 
-        mDatabase.child("isRepeat").setValue(repeating.isChecked());
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

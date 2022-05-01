@@ -159,6 +159,7 @@ public class ChoresActivity extends AppCompatActivity {
                 editChoreIntent.putExtra("userKey", currentUser);
                 String choreId = toDoChoresList.get(position).getChoreID();
                 editChoreIntent.putExtra("choreId", choreId);
+                System.out.println("open edit chore");
                 startActivity(editChoreIntent);
             }
         };
@@ -204,7 +205,7 @@ public class ChoresActivity extends AppCompatActivity {
 
         inProgressChoreAdapter = new ChoreAdapter(inProgressChoresList);
 
-        toDoChoreAdapter.setOnLinkClickListener(choreCardClickListener2);
+        inProgressChoreAdapter.setOnLinkClickListener(choreCardClickListener2);
 
         inProgressRView.setAdapter(inProgressChoreAdapter);
         inProgressRView.setLayoutManager(inProgressLayoutManager);
