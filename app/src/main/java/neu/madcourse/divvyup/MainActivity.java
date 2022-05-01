@@ -1,7 +1,5 @@
 package neu.madcourse.divvyup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -14,13 +12,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import neu.madcourse.divvyup.chores_list_screen.ChoresActivity;
+import neu.madcourse.divvyup.login.LoginActivity;
 import neu.madcourse.divvyup.recap.RecapActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
         Button testNotificationsButton = findViewById(R.id.testButton);
 
-        Button groupLoginButton = findViewById(R.id.groupLoginButton);
-        Intent groupLoginIntent = new Intent(this, GroupLoginActivity.class);
-        groupLoginButton.setOnClickListener(new View.OnClickListener() {
+        Button loginButton = findViewById(R.id.LoginButton);
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(groupLoginIntent);
+                startActivity(loginIntent);
             }
         });
 
@@ -104,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }
 //        );
-
-
-
 
     }
 

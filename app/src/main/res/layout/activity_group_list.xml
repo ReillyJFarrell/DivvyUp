@@ -35,15 +35,26 @@
       app:layout_constraintVertical_bias="0.0" />
 
   <Button
-      android:id="@+id/button"
-      android:layout_width="44dp"
-      android:layout_height="43dp"
-      android:layout_marginEnd="16dp"
-      android:text="+"
+      android:id="@+id/addGroupBtn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Add"
       app:layout_constraintBottom_toBottomOf="@+id/groupTitleTextView"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.88"
+      app:layout_constraintHorizontal_bias="0.75"
       app:layout_constraintStart_toEndOf="@+id/groupTitleTextView"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.8" />
+      app:layout_constraintVertical_bias="1.0" />
+
+  <Button
+      android:id="@+id/createGroupBtn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Create"
+      app:layout_constraintBottom_toBottomOf="@+id/groupTitleTextView"
+      app:layout_constraintEnd_toStartOf="@+id/groupTitleTextView"
+      app:layout_constraintHorizontal_bias="0.271"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,13 @@
     <string name="sat">Sat</string>
     <string name="mon">Mon</string>
     <string name="add">add</string>
+    <string name="group_code">Group Code</string>
+    <string name="add_group">Add Group</string>
+    <string name="create_new_group">Create New Group</string>
+    <string name="group_id">group_Id</string>
+    <string name="groupname">groupName</string>
+    <string name="group_name">group_name</string>
+    <string name="name">Name</string>
     <string-array name="users_array">
         <item>User 1</item>
         <item>User 2</item>

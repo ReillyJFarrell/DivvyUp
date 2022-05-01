@@ -63,12 +63,12 @@ public class ChoresActivity extends AppCompatActivity {
 
     int[] colorClassArray = new int[]{Color.GREEN, Color.YELLOW, Color.RED};
 
-    private static final String TODO_CHORE_COUNT = "TODO_CHORE_COUNT";
-    private static final String TODO_CHORE_KEY = "TODO_CHORE_KEY";
-    private static final String IN_PROGRESS_CHORE_COUNT = "IN_PROGRESS_CHORE_COUNT";
-    private static final String IN_PROGRESS_CHORE_KEY = "IN_PROGRESS_CHORE_KEY";
-    private static final String COMPLETED_CHORE_COUNT = "COMPLETED_CHORE_COUNT";
-    private static final String COMPLETED_CHORE_KEY = "COMPLETED_CHORE_KEY";
+    public static final String TODO_CHORE_COUNT = "TODO_CHORE_COUNT";
+    public static final String TODO_CHORE_KEY = "TODO_CHORE_KEY";
+    public static final String IN_PROGRESS_CHORE_COUNT = "IN_PROGRESS_CHORE_COUNT";
+    public static final String IN_PROGRESS_CHORE_KEY = "IN_PROGRESS_CHORE_KEY";
+    public static final String COMPLETED_CHORE_COUNT = "COMPLETED_CHORE_COUNT";
+    public static final String COMPLETED_CHORE_KEY = "COMPLETED_CHORE_KEY";
 
     String currentUser;
     String groupId;
@@ -90,7 +90,7 @@ public class ChoresActivity extends AppCompatActivity {
 //        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 //        mDatabase.child("chores").child(choreID).child("name").getValue();
 
-        Query allChores = choreDatabase.getReference().child("groups").orderByChild("idcode").equalTo(this.groupId);
+        Query allChores = choreDatabase.getReference("groups").orderByChild("idcode").equalTo(this.groupId);
 
         allChores.addChildEventListener(
                 new ChildEventListener() {

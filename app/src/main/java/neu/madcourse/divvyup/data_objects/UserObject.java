@@ -9,6 +9,12 @@ public class UserObject {
     String deviceID;
     List<String> groupIDs;
 
+    public UserObject(){
+        this.name = "";
+        this.deviceID = "";
+        this.groupIDs = new ArrayList<String>();
+    }
+
     public UserObject(String name, String deviceID){
         this.name = name;
         this.deviceID = deviceID;

@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DivvyUp">
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".groups.GroupListActivity"
             android:exported="false" />
         <activity
             android:name=".AddChoreActivity"

@@ -7,7 +7,8 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    app:cardBackgroundColor="#fff">
+    app:cardBackgroundColor="#fff"
+    tools:context=".chores_list_screen.ChoresActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
