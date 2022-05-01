@@ -78,6 +78,8 @@ public class ChoresActivity extends AppCompatActivity {
     String groupId;
     String group;
 
+    private List<ChoreObject> allChoresList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,14 +147,47 @@ public class ChoresActivity extends AppCompatActivity {
         inProgressRView = findViewById(R.id.idInProgressChoresRecycler);
         completedRView = findViewById(R.id.idCompletedChoresRecycler);
 
+        Activity context = this;
+
         ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
             @Override
             public void onItemClick(int position) {
                 // TODO: Navigate to chores page
-//                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
-//                editChoreIntent.putExtra("groupId", "YMErXuh");
-//                editChoreIntent.putExtra("choreId", "test chore id");
-//                startActivity(editChoreIntent);
+                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
+                editChoreIntent.putExtra("groupId", groupId);
+                editChoreIntent.putExtra("position", position);
+                editChoreIntent.putExtra("userKey", currentUser);
+                String choreId = toDoChoresList.get(position).getChoreID();
+                editChoreIntent.putExtra("choreId", choreId);
+                startActivity(editChoreIntent);
+            }
+        };
+
+        ChoreCardClickListener choreCardClickListener2 = new ChoreCardClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // TODO: Navigate to chores page
+                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
+                editChoreIntent.putExtra("groupId", groupId);
+                editChoreIntent.putExtra("position", position);
+                editChoreIntent.putExtra("userKey", currentUser);
+                String choreId = inProgressChoresList.get(position).getChoreID();
+                editChoreIntent.putExtra("choreId", choreId);
+                startActivity(editChoreIntent);
+            }
+        };
+
+        ChoreCardClickListener choreCardClickListener3 = new ChoreCardClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // TODO: Navigate to chores page
+                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
+                editChoreIntent.putExtra("groupId", groupId);
+                editChoreIntent.putExtra("position", position);
+                editChoreIntent.putExtra("userKey", currentUser);
+                String choreId = completedChoresList.get(position).getChoreID();
+                editChoreIntent.putExtra("choreId", choreId);
+                startActivity(editChoreIntent);
             }
         };
 
@@ -169,7 +204,7 @@ public class ChoresActivity extends AppCompatActivity {
 
         inProgressChoreAdapter = new ChoreAdapter(inProgressChoresList);
 
-        toDoChoreAdapter.setOnLinkClickListener(choreCardClickListener);
+        toDoChoreAdapter.setOnLinkClickListener(choreCardClickListener2);
 
         inProgressRView.setAdapter(inProgressChoreAdapter);
         inProgressRView.setLayoutManager(inProgressLayoutManager);
@@ -179,7 +214,7 @@ public class ChoresActivity extends AppCompatActivity {
 
         completedChoreAdapter = new ChoreAdapter(completedChoresList);
 
-        completedChoreAdapter.setOnLinkClickListener(choreCardClickListener);
+        completedChoreAdapter.setOnLinkClickListener(choreCardClickListener3);
 
         completedRView.setAdapter(completedChoreAdapter);
         completedRView.setLayoutManager(completedLayoutManager);
@@ -253,8 +288,10 @@ public class ChoresActivity extends AppCompatActivity {
 
     private void addChore(DataSnapshot snapshot) {
         GroupObject group = snapshot.getValue(GroupObject.class);
+        allChoresList.clear();
         for  (ChoreObject chore : group.getChores()) {
 //        ChoreObject chore = snapshot.getValue(ChoreObject.class);
+            allChoresList.add(chore);
 
             if (snapshot.getKey() != null) {
                 List<Boolean> days = chore.getDays();
@@ -264,8 +301,9 @@ public class ChoresActivity extends AppCompatActivity {
                         DayOfWeek day = getDayOfWeek(i);
                         String title = chore.getName();
                         String assigned = chore.getUserAssigned();
+                        String choreId = chore.getChoreID();
                         int progress = progresses.get(i);
-                        assignList(day, title, assigned, progress);
+                        assignList(day, title, assigned, progress, choreId);
                     }
                 }
             }
@@ -292,8 +330,8 @@ public class ChoresActivity extends AppCompatActivity {
         }
     }
 
-    public void assignList(DayOfWeek day, String title, String assigned, int progress) {
-        ChoreCard newChoreCard = new ChoreCard(day, title, assigned, progress);
+    public void assignList(DayOfWeek day, String title, String assigned, int progress, String choreID) {
+        ChoreCard newChoreCard = new ChoreCard(day, title, assigned, progress, choreID);
         switch (progress) {
             case 0:
                 toDoChoresList.add(newChoreCard);

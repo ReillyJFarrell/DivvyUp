@@ -16,6 +16,7 @@ public class ChoreCard implements ChoreCardClickListener {
 
 
     public ChoreCard() {
+
     }
 
     public ChoreCard(DayOfWeek repeatedDay, String title, String assignedUser, Integer status) {
@@ -24,6 +25,14 @@ public class ChoreCard implements ChoreCardClickListener {
         this.status = status;
         this.repeatedDay = repeatedDay;
 
+    }
+
+    public ChoreCard(DayOfWeek repeatedDay, String title, String assignedUser, Integer status, String choreID) {
+        this.assignedUserId = assignedUserId;
+        this.choreID = choreID;
+        this.title = title;
+        this.status = status;
+        this.repeatedDay = repeatedDay;
     }
 
 
@@ -59,6 +68,15 @@ public class ChoreCard implements ChoreCardClickListener {
     public void setRepeatedDay(DayOfWeek repeatedDay) {
         this.repeatedDay = repeatedDay;
     }
+
+    public String getChoreID() {
+        return choreID;
+    }
+
+    public void setChoreID(String choreID) {
+        this.choreID = choreID;
+    }
+
 
 
     @Override
