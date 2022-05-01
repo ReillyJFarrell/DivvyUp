@@ -321,19 +321,19 @@ public class ChoresActivity extends AppCompatActivity {
         // changed to + 1 to fix this
         switch (number + 1) {
             case 1:
-                return DayOfWeek.MONDAY;
-            case 2:
-                return DayOfWeek.TUESDAY;
-            case 3:
-                return DayOfWeek.WEDNESDAY;
-            case 4:
-                return DayOfWeek.THURSDAY;
-            case 5:
-                return DayOfWeek.FRIDAY;
-            case 6:
-                return DayOfWeek.SATURDAY;
-            case 7:
                 return DayOfWeek.SUNDAY;
+            case 2:
+                return DayOfWeek.MONDAY;
+            case 3:
+                return DayOfWeek.TUESDAY;
+            case 4:
+                return DayOfWeek.WEDNESDAY;
+            case 5:
+                return DayOfWeek.THURSDAY;
+            case 6:
+                return DayOfWeek.FRIDAY;
+            case 7:
+                return DayOfWeek.SATURDAY;
             default: throw new IllegalArgumentException("Not a valid day number");
         }
     }

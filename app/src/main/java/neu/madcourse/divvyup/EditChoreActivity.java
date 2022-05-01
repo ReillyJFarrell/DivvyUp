@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -70,14 +71,14 @@ public class EditChoreActivity extends AppCompatActivity {
         // need to read from DB
         assignedSpinner = (Spinner) findViewById(R.id.assignedSpinner);
         // users array should be dynamic, not static
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.users_array, R.layout.spinner_selected_item);
-        ArrayList<String> users = new ArrayList<>();
-        users.add("User 1");
-        users.add("User 2");
-        users.add("User 3");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, users);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        assignedSpinner.setAdapter(adapter);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.users_array, R.layout.spinner_selected_item);
+//        ArrayList<String> users = new ArrayList<>();
+////        users.add("User 1");
+////        users.add("User 2");
+////        users.add("User 3");
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, users);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        assignedSpinner.setAdapter(adapter);
 
 
         week = new ArrayList<>();
@@ -98,15 +99,44 @@ public class EditChoreActivity extends AppCompatActivity {
 
         repeating = findViewById(R.id.repeatingCheckBox);
 
+        Activity context = this;
+
+        Query currentGroup = FirebaseDatabase.getInstance().getReference().child("groups").orderByKey().equalTo(groupId);
+        currentGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> toSet = snapshot.getChildren();
+                DataSnapshot snap = toSet.iterator().next();
+                GroupObject currentGroup = snap.getValue(GroupObject.class);
+
+
+                ArrayList<String> users = new ArrayList<>();
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_selected_item, users);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                assignedSpinner.setAdapter(adapter);
+
+                for (String id : currentGroup.getMembersIDs()) {
+                    users.add(id);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         // set values to match what currently exists in the DB
         Query oldChore = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").orderByChild("choreID").equalTo(choreId);
         oldChore.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println(groupId + " " + choreId);
                 Iterable<DataSnapshot> toSet = snapshot.getChildren();
-                DataSnapshot snap = toSet.iterator().next();;
+                DataSnapshot snap = toSet.iterator().next();
                 ChoreObject chore = snap.getValue(ChoreObject.class);
+
+
                 choreNameEditText.setText(chore.getName());
                 repeating.setChecked(chore.getRepeat());
                 sunday.setChecked(chore.getDays().get(0));
