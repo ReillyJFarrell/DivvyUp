@@ -8,18 +8,13 @@
         <entry key="..\:/Users/A/Desktop/AppDev/DivvyUp/app/src/main/res/layout/activity_main.xml" value="0.27912867274569403" />
         <entry key="..\:/Users/A/Desktop/AppDev/DivvyUp/app/src/main/res/layout/activity_progress.xml" value="0.33" />
         <entry key="..\:/Users/A/Desktop/AppDev/DivvyUp/app/src/main/res/layout/chat_card_item.xml" value="0.16945288753799392" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_add_chore.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_chore_card.xml" value="0.67" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_chores.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_database_test.xml" value="0.22010869565217392" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_group_list.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_group_login.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_login.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_main.xml" value="0.519927536231884" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/group_card.xml" value="0.34270833333333334" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/popup.xml" value="0.519927536231884" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/popup_add.xml" value="0.33" />
-        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/popup_create.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/Eric/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_chore_card.xml" value="0.3813405797101449" />
+        <entry key="..\:/Users/notac/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_add_chore.xml" value="0.18857142857142858" />
+        <entry key="..\:/Users/notac/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_chore_card.xml" value="0.42857142857142855" />
+        <entry key="..\:/Users/notac/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_chores.xml" value="0.2857142857142857" />
+        <entry key="..\:/Users/notac/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_edit_chore.xml" value="0.42857142857142855" />
+        <entry key="..\:/Users/notac/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/activity_group_login.xml" value="0.21739130434782608" />
+        <entry key="..\:/Users/notac/AndroidStudioProjects/DivvyUp/app/src/main/res/layout/spinner_selected_item.xml" value="0.18857142857142858" />
       </map>
     </option>
   </component>

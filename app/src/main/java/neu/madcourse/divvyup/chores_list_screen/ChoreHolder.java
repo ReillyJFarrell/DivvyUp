@@ -19,7 +19,6 @@ public class ChoreHolder extends RecyclerView.ViewHolder {
         assignedUser = itemView.findViewById(R.id.idAssignedUser);
         task = itemView.findViewById(R.id.idTask);
         dueDate = itemView.findViewById(R.id.idDueDate);
-        moveBtn = itemView.findViewById(R.id.moveButton);
 
 
         itemView.setOnClickListener(new View.OnClickListener() {

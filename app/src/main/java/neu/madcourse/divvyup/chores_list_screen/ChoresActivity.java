@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -96,6 +97,9 @@ public class ChoresActivity extends AppCompatActivity {
             this.groupId = extras.getString("groupID");
             this.group = extras.getString("group");
         }
+
+        TextView nameID = findViewById(R.id.nameIDTextView);
+        nameID.setText(group + ": " + groupId);
 
 
         AlertDialog.Builder editAlert = new AlertDialog.Builder(this);
@@ -436,6 +440,9 @@ public class ChoresActivity extends AppCompatActivity {
 //        return colors;
 //    }
 
-
+    @Override
+    public void onBackPressed() {
+        this.finish();
+    }
 
 }

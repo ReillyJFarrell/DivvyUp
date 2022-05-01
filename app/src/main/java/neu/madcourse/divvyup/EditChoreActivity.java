@@ -221,4 +221,9 @@ public class EditChoreActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+    }
 }
