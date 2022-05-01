@@ -3,7 +3,9 @@ package neu.madcourse.divvyup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -12,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import neu.madcourse.divvyup.data_objects.ChoreObject;
 
 public class AddChoreActivity extends AppCompatActivity {
 
@@ -47,6 +52,8 @@ public class AddChoreActivity extends AppCompatActivity {
             this.groupId = "IDDD";
         }
 
+        System.out.println(groupId);
+
         choreName = findViewById(R.id.addChoreNameEditView);
         // need to read from DB
         assignedSpinner = (Spinner) findViewById(R.id.addAssignedSpinner);
@@ -78,16 +85,37 @@ public class AddChoreActivity extends AppCompatActivity {
         week.add(saturday);
 
         repeating = findViewById(R.id.addRepeatingCheckBox);
+
+        Button saveButton = findViewById(R.id.addSaveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addChore(groupId);
+            }
+        });
     }
 
     private void addChore(String groupID) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores");
-        DatabaseReference postRef = mDatabase.push();
+        // mDatabase.child("choreID").setValue("test chore id");
+        // Taken from https://www.baeldung.com/java-random-string
+        // refactored from GroupListActivity
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
 
-        mDatabase.child("userAssigned").setValue(choreName.getText().toString());
+        String choreId = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores").child(choreId);
+
+        // mDatabase.child("userAssigned").setValue(choreName.getText().toString());
 
         String assignedUser = assignedSpinner.getSelectedItem().toString();
-        mDatabase.child("userAssigned").setValue(assignedUser);
+        // mDatabase.child("userAssigned").setValue(assignedUser);
 
         ArrayList<Boolean> days = new ArrayList<Boolean>();
         for (int i = 0; i < week.size(); i++) {
@@ -98,12 +126,15 @@ public class AddChoreActivity extends AppCompatActivity {
                 days.add(false);
             }
         }
-        mDatabase.child("days").setValue(days);
+        // mDatabase.child("days").setValue(days);
 
-        mDatabase.child("isRepeat").setValue(repeating.isChecked());
+        boolean isRepeat = repeating.isChecked();
+        // mDatabase.child("isRepeat").setValue(repeating.isChecked());
 
-        // TODO: generate id for chore I think?
-        // mDatabase.child("choreID").setValue("test chore id");
+        // TODO: generate id for chore I think
+
+        // mDatabase.child("choreID").setValue(choreId);
+        mDatabase.setValue(new ChoreObject(choreName.getText().toString(), groupId, choreId, assignedUser, days, isRepeat));
 
     }
 }

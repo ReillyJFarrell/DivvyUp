@@ -94,10 +94,11 @@ public class EditChoreActivity extends AppCompatActivity {
         repeating = findViewById(R.id.repeatingCheckBox);
 
         // set values to match what currently exists in the DB
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child(choreId);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(choreId);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println(groupId + " " + choreId);
                 ChoreObject chore = snapshot.getValue(ChoreObject.class);
                 choreNameEditText.setText(chore.getName());
                 repeating.setChecked(chore.getRepeat());
@@ -132,7 +133,7 @@ public class EditChoreActivity extends AppCompatActivity {
     private void saveChore(String groupID, String choreID) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child(choreID);
         // save data
-        mDatabase.child("userAssigned").setValue(choreNameEditText.getText().toString());
+        mDatabase.child("name").setValue(choreNameEditText.getText().toString());
 
         String assignedUser = assignedSpinner.getSelectedItem().toString();
         mDatabase.child("userAssigned").setValue(assignedUser);

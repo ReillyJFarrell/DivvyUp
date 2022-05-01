@@ -26,6 +26,17 @@ public class ChoreObject {
         this.choreID = "Place Holder Chore ID";
     }
 
+    public ChoreObject(String name, String groupId, String choreId, String userAssigned, ArrayList<Boolean> days, Boolean isRepeat){
+        this.name = name;
+        this.description = "";
+        this.isRepeat = isRepeat;
+        this.days = days;
+        this.userAssigned = userAssigned;
+        this.progressMode = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
+        this.groupID = groupId;
+        this.choreID = choreId;
+    }
+
     public ChoreObject(String name, String description, Boolean isRepeat){
         this.name = name;
         this.description = description;
