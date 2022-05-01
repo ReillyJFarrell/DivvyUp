@@ -303,7 +303,8 @@ public class ChoresActivity extends AppCompatActivity {
     }
 
     public DayOfWeek getDayOfWeek(int number) {
-        switch (number) {
+        // changed to + 1 to fix this
+        switch (number + 1) {
             case 1:
                 return DayOfWeek.MONDAY;
             case 2:

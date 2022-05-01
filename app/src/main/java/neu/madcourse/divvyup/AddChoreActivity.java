@@ -1,5 +1,6 @@
 package neu.madcourse.divvyup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,13 +11,21 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import neu.madcourse.divvyup.data_objects.ChoreObject;
+import neu.madcourse.divvyup.data_objects.GroupObject;
+import neu.madcourse.divvyup.data_objects.PastGroupObject;
 
 public class AddChoreActivity extends AppCompatActivity {
 
@@ -96,45 +105,61 @@ public class AddChoreActivity extends AppCompatActivity {
     }
 
     private void addChore(String groupID) {
-        // mDatabase.child("choreID").setValue("test chore id");
-        // Taken from https://www.baeldung.com/java-random-string
-        // refactored from GroupListActivity
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        Random random = new Random();
+        // DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores"); //.child(choreId);
+        Query currentGroup = FirebaseDatabase.getInstance().getReference().child("groups").orderByKey().equalTo(groupId);
+        currentGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // mDatabase.child("choreID").setValue("test chore id");
+                // Taken from https://www.baeldung.com/java-random-string
+                // refactored from GroupListActivity
+                int leftLimit = 48; // numeral '0'
+                int rightLimit = 122; // letter 'z'
+                int targetStringLength = 10;
+                Random random = new Random();
 
-        String choreId = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+                String choreId = random.ints(leftLimit, rightLimit + 1)
+                        .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                        .limit(targetStringLength)
+                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                        .toString();
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores").child(choreId);
 
-        // mDatabase.child("userAssigned").setValue(choreName.getText().toString());
+                String assignedUser = assignedSpinner.getSelectedItem().toString();
+                // mDatabase.child("userAssigned").setValue(assignedUser);
 
-        String assignedUser = assignedSpinner.getSelectedItem().toString();
-        // mDatabase.child("userAssigned").setValue(assignedUser);
+                ArrayList<Boolean> days = new ArrayList<Boolean>();
+                for (int i = 0; i < week.size(); i++) {
+                    if (week.get(i).isChecked()) {
+                        days.add(true);
+                    }
+                    else {
+                        days.add(false);
+                    }
+                }
+                // mDatabase.child("days").setValue(days);
 
-        ArrayList<Boolean> days = new ArrayList<Boolean>();
-        for (int i = 0; i < week.size(); i++) {
-            if (week.get(i).isChecked()) {
-                days.add(true);
+                boolean isRepeat = repeating.isChecked();
+                // mDatabase.child("isRepeat").setValue(repeating.isChecked());
+
+                Iterable<DataSnapshot> toSet = snapshot.getChildren();
+                DataSnapshot snap = toSet.iterator().next();
+                GroupObject currentGroup = snap.getValue(GroupObject.class);
+
+                ChoreObject newChore = new ChoreObject(choreName.getText().toString(), groupId, choreId, assignedUser, days, isRepeat);
+                List<ChoreObject> updatedChores = currentGroup.getChores();
+                updatedChores.add(newChore);
+                currentGroup.setChores(updatedChores);
+
+                DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID);
+                newRef.setValue(currentGroup);
             }
-            else {
-                days.add(false);
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
-        }
-        // mDatabase.child("days").setValue(days);
-
-        boolean isRepeat = repeating.isChecked();
-        // mDatabase.child("isRepeat").setValue(repeating.isChecked());
-
-        // TODO: generate id for chore I think
-
-        // mDatabase.child("choreID").setValue(choreId);
-        mDatabase.setValue(new ChoreObject(choreName.getText().toString(), groupId, choreId, assignedUser, days, isRepeat));
+        });
 
     }
 }
