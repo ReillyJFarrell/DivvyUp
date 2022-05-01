@@ -160,6 +160,7 @@ public class ChoresActivity extends AppCompatActivity {
                 editChoreIntent.putExtra("userKey", currentUser);
                 String choreId = toDoChoresList.get(position).getChoreID();
                 editChoreIntent.putExtra("choreId", choreId);
+                editChoreIntent.putExtra("group", group);
                 System.out.println("open edit chore");
                 startActivity(editChoreIntent);
             }
@@ -189,6 +190,7 @@ public class ChoresActivity extends AppCompatActivity {
                 editChoreIntent.putExtra("userKey", currentUser);
                 String choreId = completedChoresList.get(position).getChoreID();
                 editChoreIntent.putExtra("choreId", choreId);
+                editChoreIntent.putExtra("group", group);
                 startActivity(editChoreIntent);
             }
         };
@@ -253,7 +255,7 @@ public class ChoresActivity extends AppCompatActivity {
             public void onClick(View view) {
                 intent.putExtra("userKey", currentUser);
                 intent.putExtra("groupId", groupId);
-
+                intent.putExtra("group", group);
                 startActivity(intent);
             }
         });
