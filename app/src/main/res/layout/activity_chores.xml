@@ -119,6 +119,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/idBarChart"
         app:layout_constraintEnd_toEndOf="parent"
