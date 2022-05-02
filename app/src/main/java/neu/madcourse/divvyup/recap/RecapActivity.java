@@ -57,7 +57,13 @@ public class RecapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        groupId = "pkEKWW1";
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+//            this.currentUser = extras.getString("userKey");
+            groupId = extras.getString("groupId");
+//            this.group = extras.getString("group");
+        }
+//        groupId = "pkEKWW1";
         this.database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
         setContentView(R.layout.activity_progress);
@@ -76,15 +82,15 @@ public class RecapActivity extends AppCompatActivity {
         progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
         progressPercent.setVisibility(View.VISIBLE);
-        RecapCard card = new RecapCard("Wash the Dog", 1, "Sam", Arrays.asList(-1, -1, -1, 2, -1, -1, -1));
-        RecapCard card1 = new RecapCard("Take out the Dog", 1, "Bill", Arrays.asList(2, 2, 0, 2, 2, 1, 1));
-        RecapCard card2 = new RecapCard("Feed the Dog", 2, "Ted", Arrays.asList(2, 2, 2, 2, 2, 2, 2));
-        RecapCard card3 = new RecapCard("Play with the Dog", 0, "Tam", Arrays.asList(0, 0, -1, -1, 0, 0, 0));
-        RecapCard card4 = new RecapCard("Train the Dog", 2, "Tyler", Arrays.asList(-1, 2, -1, 2, -1, -1, 2));
-        RecapCard card5 = new RecapCard("Let the dog out", 1, "Abby", Arrays.asList(-1, -1, -1, 1, 1, 1, 1));
-        RecapCard card6 = new RecapCard("Brush the Dog", 1, "Lily", Arrays.asList(2, -1, -1, -1, 0, -1, -1));
-        RecapCard card7 = new RecapCard("Take the Dog to the vet", 0, "Sean", Arrays.asList(-1, -1, -1, 0, -1, -1, -1));
-        RecapCard card8 = new RecapCard("Take the dog to the park", 2, "Robert", Arrays.asList(-1, -1, -1, 2, 2, 2, -1));
+//        RecapCard card = new RecapCard("Wash the Dog", 1, "Sam", Arrays.asList(-1, -1, -1, 2, -1, -1, -1));
+//        RecapCard card1 = new RecapCard("Take out the Dog", 1, "Bill", Arrays.asList(2, 2, 0, 2, 2, 1, 1));
+//        RecapCard card2 = new RecapCard("Feed the Dog", 2, "Ted", Arrays.asList(2, 2, 2, 2, 2, 2, 2));
+//        RecapCard card3 = new RecapCard("Play with the Dog", 0, "Tam", Arrays.asList(0, 0, -1, -1, 0, 0, 0));
+//        RecapCard card4 = new RecapCard("Train the Dog", 2, "Tyler", Arrays.asList(-1, 2, -1, 2, -1, -1, 2));
+//        RecapCard card5 = new RecapCard("Let the dog out", 1, "Abby", Arrays.asList(-1, -1, -1, 1, 1, 1, 1));
+//        RecapCard card6 = new RecapCard("Brush the Dog", 1, "Lily", Arrays.asList(2, -1, -1, -1, 0, -1, -1));
+//        RecapCard card7 = new RecapCard("Take the Dog to the vet", 0, "Sean", Arrays.asList(-1, -1, -1, 0, -1, -1, -1));
+//        RecapCard card8 = new RecapCard("Take the dog to the park", 2, "Robert", Arrays.asList(-1, -1, -1, 2, 2, 2, -1));
 //        recapCardsList.add(card);
 //        recapCardsList.add(card1);
 //        recapCardsList.add(card2);
