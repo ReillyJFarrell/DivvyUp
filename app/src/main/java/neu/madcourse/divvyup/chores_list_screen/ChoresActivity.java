@@ -44,6 +44,7 @@ import neu.madcourse.divvyup.EditChoreActivity;
 import neu.madcourse.divvyup.R;
 import neu.madcourse.divvyup.data_objects.ChoreObject;
 import neu.madcourse.divvyup.data_objects.GroupObject;
+import neu.madcourse.divvyup.notifications.NotificationSender;
 import neu.madcourse.divvyup.recap.RecapActivity;
 
 public class ChoresActivity extends AppCompatActivity {
@@ -90,6 +91,9 @@ public class ChoresActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chores);
+
+        NotificationSender notificationSender = new NotificationSender(this);
+        notificationSender.createNotificationChannel();
 
         choreDatabase = FirebaseDatabase.getInstance();
         Bundle extras = getIntent().getExtras();
@@ -167,6 +171,7 @@ public class ChoresActivity extends AppCompatActivity {
 //                                    newRef.removeValue();
 //                                    newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(Integer.toString(position));
 //                                    newRef.setValue(choreFound);
+                                    notificationSender.sendNotification(group, choreFound.getName(), R.drawable.final_logo);
                                 }
                             }
 
@@ -175,6 +180,7 @@ public class ChoresActivity extends AppCompatActivity {
 
                             }
                         });
+
                     }
                 });
 
