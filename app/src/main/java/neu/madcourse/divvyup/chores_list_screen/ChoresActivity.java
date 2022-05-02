@@ -336,7 +336,34 @@ public class ChoresActivity extends AppCompatActivity {
 //                                    newRef.removeValue();
 //                                    newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(Integer.toString(position));
 //                                    newRef.setValue(choreFound);
-                                        notificationSender.sendNotification(group, choreFound.getName(), R.drawable.final_logo);
+                                        newRef.addChildEventListener(new ChildEventListener() {
+                                            @Override
+                                            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                                                     @Nullable String previousChildName) {
+                                                notificationSender.sendNotification(group, choreFound.getName(), R.drawable.final_logo);
+                                            }
+
+                                            @Override
+                                            public void onChildChanged(@NonNull DataSnapshot snapshot
+                                                    , @Nullable String previousChildName) {
+                                                notificationSender.sendNotification(group, choreFound.getName(), R.drawable.final_logo);
+                                            }
+
+                                            @Override
+                                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
                                 }
 
