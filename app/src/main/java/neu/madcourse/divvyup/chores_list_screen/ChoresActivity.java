@@ -224,12 +224,6 @@ public class ChoresActivity extends AppCompatActivity {
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         addChore(snapshot);
                         updateChart();
-//                        String receiver = snapshot.child("groupId").getValue(String.class);
-//
-//                        if (currentUser.equals(receiver)) {
-//                            System.out.println("SENDING NOTIFICATON");
-////                            notificationSender.sendNotification(sender);
-//                        }
                     }
 
                     @Override
@@ -266,41 +260,12 @@ public class ChoresActivity extends AppCompatActivity {
         completedRView = findViewById(R.id.idCompletedChoresRecycler);
 
 
-
-//        ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                // TODO: Navigate to chores page
-//                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
-//                editChoreIntent.putExtra("groupId", groupId);
-//                editChoreIntent.putExtra("position", position);
-//                editChoreIntent.putExtra("userKey", currentUser);
-//                String choreId = toDoChoresList.get(position).getChoreID();
-//                editChoreIntent.putExtra("choreId", choreId);
-//                editChoreIntent.putExtra("group", group);
-//                System.out.println("open edit chore");
-//                startActivity(editChoreIntent);
-//            }
-//        };
-
-
-
         ChoreCardClickListener choreCardClickListener2 = new ChoreCardClickListener() {
             @Override
             public void onItemClick(int position) {
                 AlertDialog.Builder alertTwo = new AlertDialog.Builder(context);
                 alertTwo.setTitle("Options");
                 alertTwo.setMessage("Select Your Option");
-
-//                // TODO: Navigate to chores page
-//                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
-//                editChoreIntent.putExtra("groupId", groupId);
-//                editChoreIntent.putExtra("position", position);
-//                editChoreIntent.putExtra("userKey", currentUser);
-//                String choreId = inProgressChoresList.get(position).getChoreID();
-//                editChoreIntent.putExtra("choreId", choreId);
-//                startActivity(editChoreIntent);
-
 
                 alertTwo.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -333,9 +298,6 @@ public class ChoresActivity extends AppCompatActivity {
                                         choreFound.setProgressMode(index, 2);
                                         DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child((inProgressChoresList.get(position).getChoreID()));
                                         newRef.setValue(choreFound);
-//                                    newRef.removeValue();
-//                                    newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(Integer.toString(position));
-//                                    newRef.setValue(choreFound);
                                         newRef.addChildEventListener(new ChildEventListener() {
                                             @Override
                                             public void onChildAdded(@NonNull DataSnapshot snapshot,
@@ -380,22 +342,6 @@ public class ChoresActivity extends AppCompatActivity {
             }
         };
 
-//        ChoreCardClickListener choreCardClickListener3 = new ChoreCardClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                // TODO: Navigate to chores page
-//                Intent editChoreIntent = new Intent(context, EditChoreActivity.class);
-//                editChoreIntent.putExtra("groupId", groupId);
-//                editChoreIntent.putExtra("position", position);
-//                editChoreIntent.putExtra("userKey", currentUser);
-//                String choreId = completedChoresList.get(position).getChoreID();
-//                editChoreIntent.putExtra("choreId", choreId);
-//                editChoreIntent.putExtra("group", group);
-//                startActivity(editChoreIntent);
-//            }
-//        };
-
-
         // To Do Chores
         toDoChoreAdapter = new ChoreAdapter(toDoChoresList);
 
@@ -417,8 +363,6 @@ public class ChoresActivity extends AppCompatActivity {
         // Completed Chores
 
         completedChoreAdapter = new ChoreAdapter(completedChoresList);
-
-//        completedChoreAdapter.setOnLinkClickListener(choreCardClickListener3);
 
         completedRView.setAdapter(completedChoreAdapter);
         completedRView.setLayoutManager(completedLayoutManager);
@@ -505,7 +449,6 @@ public class ChoresActivity extends AppCompatActivity {
         completedChoresList.clear();
         completedChoreAdapter.notifyDataSetChanged();
         for  (ChoreObject chore : group.getChores()) {
-//        ChoreObject chore = snapshot.getValue(ChoreObject.class);
             allChoresList.add(chore);
 
             if (snapshot.getKey() != null) {
@@ -585,17 +528,4 @@ public class ChoresActivity extends AppCompatActivity {
             default: break;
         }
     }
-//
-//    private int[] getColors() {
-//        // have as many colors as stack-values per entry
-//        int[] colors = new int[3];
-//        System.arraycopy(ColorTemplate.MATERIAL_COLORS, 0, colors, 0, 3);
-//        return colors;
-//    }
-
-//    @Override
-//    public void onBackPressed() {
-//        this.finish();
-//    }
-
 }
