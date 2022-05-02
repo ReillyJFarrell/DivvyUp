@@ -238,8 +238,8 @@ public class EditChoreActivity extends AppCompatActivity {
                     choreFound.setProgressMode(statuses);
 //                    DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID).child("chores").child(Integer.toString(position));
                     DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(choreFound.getChoreID());
-                    newRef.removeValue();
-                    newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(choreFound.getChoreID());
+//                    newRef.removeValue();
+//                    newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(choreFound.getChoreID());
                     newRef.setValue(choreFound);
                 }
             }
