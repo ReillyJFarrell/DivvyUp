@@ -186,12 +186,19 @@ public class AddChoreActivity extends AppCompatActivity {
                     }
                 }
 
+                int place = 0;
+                for (ChoreObject chore: currentGroup.getChores()){
+                    place ++;
+                }
+
                 boolean isRepeat = repeating.isChecked();
 
-                ChoreObject newChore = new ChoreObject(choreName.getText().toString(), groupId, choreId, assignedUser, days, isRepeat);
+                ChoreObject newChore = new ChoreObject(choreName.getText().toString(), groupId, Integer.toString(place), assignedUser, days, isRepeat);
                 List<ChoreObject> updatedChores = currentGroup.getChores();
                 updatedChores.add(newChore);
                 currentGroup.setChores(updatedChores);
+
+
 
                 DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupID);
                 newRef.setValue(currentGroup);

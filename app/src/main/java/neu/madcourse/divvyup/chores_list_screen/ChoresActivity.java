@@ -141,12 +141,18 @@ public class ChoresActivity extends AppCompatActivity {
 
         ChoreCardClickListener choreCardClickListener = new ChoreCardClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int position) { //THIS IS THE PROBLEM
                 editAlert.setNeutralButton("Increment", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DayOfWeek day = toDoChoresList.get(position).getRepeatedDay();
                         int index = getDayOfWeekRev(day);
+
+
+
+
+
+
                         Query currentChoreQ = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").orderByChild("choreID").equalTo(toDoChoresList.get(position).getChoreID());
 
                         currentChoreQ.addValueEventListener(new ValueEventListener() {
@@ -156,8 +162,11 @@ public class ChoresActivity extends AppCompatActivity {
                                     Iterable<DataSnapshot> currentChore = snapshot.getChildren();
                                     ChoreObject choreFound = currentChore.iterator().next().getValue(ChoreObject.class);
                                     choreFound.setProgressMode(index, 1);
-                                    DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(Integer.toString(position));
+                                    DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child((toDoChoresList.get(position).getChoreID()));
                                     newRef.setValue(choreFound);
+//                                    newRef.removeValue();
+//                                    newRef = FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).child("chores").child(Integer.toString(position));
+//                                    newRef.setValue(choreFound);
                                 }
                             }
 
